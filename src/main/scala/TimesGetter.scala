@@ -67,7 +67,7 @@ object TimesGetter {
       val jArtTag = dr.findElementByXPath(s"""//*[@id="jtarticle"]""")
       List(jArtTag.getText)
     } catch {
-      case e => List.empty
+      case _: Throwable => List.empty
     }
   }
 

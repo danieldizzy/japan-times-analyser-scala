@@ -1,7 +1,5 @@
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.openqa.selenium.By
-import org.openqa.selenium.remote.RemoteWebDriver
 
 import scala.collection.JavaConversions._
 
@@ -50,7 +48,7 @@ object TimesGetterJsoup {
       val doc = Jsoup.connect(url).timeout(0).get()
       List(doc.getElementById("jtarticle").text())
     } catch {
-      case e => List.empty
+      case _: Throwable => List.empty
     }
   }
 

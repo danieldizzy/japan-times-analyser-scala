@@ -1,13 +1,4 @@
-import java.io.{File, FileOutputStream, PrintWriter}
-
-import org.openqa.selenium.firefox.{FirefoxDriver, FirefoxProfile}
-
 import scala.io.Source
-//import scala.util.Marshal
-import scala.pickling._
-import json._
-import scala.pickling.Defaults._
-import scala.pickling.json._
 
 /**
   * Created by Ryo Ota on 2016/11/07.
