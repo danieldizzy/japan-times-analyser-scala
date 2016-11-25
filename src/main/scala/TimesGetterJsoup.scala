@@ -8,7 +8,6 @@ import scala.collection.JavaConversions._
 object TimesGetterJsoup {
 
   // page creator for "figure"
-
   def figurePage(pageNum: Int) = s"http://www.japantimes.co.jp/sports/figure-skating/figure-skating/page/${pageNum}/"
   // page creator for "somo"
   def sumoPage(pageNum: Int)   = s"http://www.japantimes.co.jp/sports/basho-reports/sumo/page/${pageNum}/"
