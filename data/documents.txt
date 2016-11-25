@@ -1,0 +1,3 @@
+weather is fine rainy.
+weather cloudy fine.
+basketball baseball soccer baseball
