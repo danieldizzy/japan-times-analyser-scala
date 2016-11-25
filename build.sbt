@@ -9,5 +9,7 @@ val seleniumVersion = "2.53.1"
 libraryDependencies ++= Seq(
   "org.seleniumhq.selenium" % "selenium-java" % seleniumVersion,
   "org.seleniumhq.selenium" % "selenium-firefox-driver" % seleniumVersion,
-  "org.scala-lang.modules" %% "scala-pickling" % "0.10.1"
+
+  "org.scala-lang.modules" %% "scala-pickling" % "0.10.1",
+  "org.jsoup" % "jsoup" % "1.10.1"
 )

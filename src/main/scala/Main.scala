@@ -34,17 +34,19 @@ object Main {
 
   // return: structure (figureUrls, sumoUrls)
   private[this] def onlineJTDocsPair(): (List[EngDocument], List[EngDocument]) = {
-    val dr = new FirefoxDriver()
-    val pageLimit = 1
-    val figureUrls = TimesGetter.getUrls(dr, TimesGetter.figurePage, pageLimit)
-    val sumoUrls   = TimesGetter.getUrls(dr, TimesGetter.sumoPage, pageLimit)
+//    lazy val dr = ??? //new FirefoxDriver()
+    val pageLimit = 30
+    val figureUrls = TimesGetterJsoup.getUrls(TimesGetterJsoup.figurePage, pageLimit)
+    val sumoUrls   = TimesGetterJsoup.getUrls(TimesGetterJsoup.sumoPage, pageLimit)
+    println("figure" + figureUrls)
+    println("sumo  " + sumoUrls)
 
-    val figureArt = figureUrls.flatMap(url => TimesGetter.getArticle(dr, url)).map(EngDocument)
-    val sumoArt = figureUrls.flatMap(url => TimesGetter.getArticle(dr, url)).map(EngDocument)
+    val figureArt = figureUrls.flatMap(url => TimesGetterJsoup.getArticle(url)).map(EngDocument)
+    val sumoArt   = sumoUrls.flatMap(url => TimesGetterJsoup.getArticle(url)).map(EngDocument)
     (figureArt, sumoArt)
   }
 
-  private[this] def offlineJTDocsPair(): (List[EngDocument], List[EngDocument]) = {
+  private[this] lazy val offlineJTDocsPair: (List[EngDocument], List[EngDocument]) = {
     Source.fromFile(japanTimesJsonFilePath).mkString.unpickle[(List[EngDocument], List[EngDocument])]
   }
 
@@ -60,14 +62,14 @@ object Main {
     val figureLabel    = "+1"
     val sumoLabel      = "-1"
     // number of training sets
-    val trainSetNumber = 17
+    val trainSetNumber = 237
     // File names for train set and test set
     val trainFilePath  = "./data/train-set"
     val testFilePath   = "./data/test-set"
     val trainFileWriter      = new PrintWriter(new File(trainFilePath))
     val testFileWriter      =  new PrintWriter(new File(testFilePath))
 
-    val (figureDocs, sumoDocs) = offlineJTDocsPair()
+    val (figureDocs, sumoDocs) = offlineJTDocsPair
 
     // All documents (from a file)
     val engDocuments: Seq[EngDocument] =
@@ -80,6 +82,7 @@ object Main {
     println("--- All words ---")
 //    println(allWords)
 //    println(allWords.size)
+    println(s"number of words: ${allWords.size}")
 
     println(figureDocs.length)
     println(sumoDocs.length)
@@ -144,9 +147,14 @@ object Main {
   }
 
   def main(args: Array[String]) {
-//    println(offlineJTDocsPair()._1.length)
-//    runFeatureCalc()
-    downloadJapanTimesDocs()
+    println(offlineJTDocsPair._1.length)
+    println(offlineJTDocsPair._2.length)
+
+    println(offlineJTDocsPair._1.distinct.length)
+    println(offlineJTDocsPair._2.distinct.length)
+
+    runFeatureCalc()
+//    downloadJapanTimesDocs()
 //    println(offlineJTDocsPair())
   }
 }
