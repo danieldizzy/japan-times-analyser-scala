@@ -95,24 +95,18 @@ object TrainAndTestFilesGenerator {
     require(0 <= trainSetRate && trainSetRate <= 1)
 
 
-    // labels for dataset
-    val posLabel    = "+1"
-    val negLabel    = "-1"
-
     // extract the positive docs and negative docs
     val MultiDataset(docsSeq) = multiClassifiable.multiDataset()
 
     // numbers of training sets
     val trainSetNumbers = docsSeq.map{docs => (docs.length * trainSetRate).toInt}
-//    val posTrainSetNumber = (posDocs.length * trainSetRate).toInt
-//    val negTrainSetNumber = (negDocs.length * trainSetRate).toInt
+
 
     // create PrintWriters for train-set file and test-set file
     val trainFileWriter      = new PrintWriter(new File(trainFilePath))
     val testFileWriter      =  new PrintWriter(new File(testFilePath))
 
     // All documents (from a file)
-//    val engDocuments: Seq[EngDocument] = posDocs ++ negDocs
     val engDocuments: Seq[EngDocument] = docsSeq.reduce(_ ++ _)
 
     // Get the feature vectors and all words containing all documents
@@ -138,18 +132,17 @@ object TrainAndTestFilesGenerator {
     }
 
     // make train file
-//    val trainAndTestDocsSeq: Seq[Seq[(EngDocument, EngDocument)]] =
     docsSeq.zip(trainSetNumbers).map{case (docs, trainSetNumber) =>
-      val trains = docs.take(trainSetNumber)
-      val tests  = docs.drop(trainSetNumber)
-      (trains, tests)
+      // split docs into (trainSet, testSet)
+      docs.splitAt(trainSetNumber)
     }.zipWithIndex.foreach{case ((trains, tests), index) =>
+      // write docs to the train-set file
       for(doc <- trains)
         trainFileWriter.println(featureVectorToSvmLightFormat(label=index+1+"", featureVectors(doc)))
+      // write docs to the test-set file
       for(doc <- tests)
         testFileWriter.println(featureVectorToSvmLightFormat(label=index+1+"", featureVectors(doc)))
     }
-
 
     trainFileWriter.close()
     testFileWriter.close()

@@ -16,7 +16,9 @@ case class EngDocument(entity: String){
     * @return
     */
   lazy val wordFreq: Map[Word, Int] =
-    this.entity.split("\\s")
+    this.entity
+//      .replaceAll("['.\"!@\\-~+#$^\\(\\)?,]", " ") if not use this replacement, less error rate
+      .split("\\s")
       .map(Word(_))
       .groupBy(identity(_))
       .map{case (k, v) =>(k, v.length)}
