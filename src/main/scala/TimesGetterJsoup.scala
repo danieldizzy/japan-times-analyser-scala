@@ -9,6 +9,13 @@ object TimesGetterJsoup {
   def figurePage(pageNum: Int) = s"http://www.japantimes.co.jp/sports/figure-skating/figure-skating/page/${pageNum}/"
   // page creator for "somo"
   def sumoPage(pageNum: Int)   = s"http://www.japantimes.co.jp/sports/basho-reports/sumo/page/${pageNum}/"
+  // page creator for politic
+  def politicPage(pageNum: Int)   = s"http://www.japantimes.co.jp/news/politics-diplomacy/page/${pageNum}/"
+  // page creator for politic
+  def economyPage(pageNum: Int)   = s"http://www.japantimes.co.jp/news/economy-business/page/${pageNum}/"
+  // page creator for tech
+  def techPage(pageNum: Int)   = s"http://www.japantimes.co.jp/news/business/tech/page/${pageNum}/"
+
 
   /**
     * get URLs

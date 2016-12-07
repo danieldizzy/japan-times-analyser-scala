@@ -32,13 +32,21 @@ object Main {
   }
 
   def main(args: Array[String]) {
+//
+//    // make train-set file and test-set file for SVM light
+//    TrainAndTestFilesGenerator.generateSvmLightFormatFiles(
+//      FigureAndSumoDataset,
+//      trainFilePath = "./data/train-set",
+//      testFilePath  = "./data/test-set",
+//      trainSetRate = 0.8)
 
-    // make train-set file and test-set file for SVM light
-    TrainAndTestFilesGenerator.generateSvmLightFormatFiles(
-      FigureAndSumoDataset,
-      trainFilePath = "./data/train-set",
-      testFilePath  = "./data/test-set",
-      trainSetRate = 0.8)
+
+    TrainAndTestFilesGenerator.generateMultiSvmLightFormatFiles(
+      JapanTimesDataset,
+      trainFilePath = "./data/multi-class-train-set",
+      testFilePath  = "./data/multi-class-test-set",
+      trainSetRate = 0.8
+    )
 
   }
 }
