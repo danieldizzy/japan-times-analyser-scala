@@ -60,10 +60,20 @@ object Main {
 //      trainSetRate = 0.8
 //    )
 
+
+
+//    TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFiles(
+//      JapanTimesDonwloader.`Multi-Classfiable of (train-set: title + article, test-set: only title)`,
+//      trainFilePath = "./data/multi-class-title-article-train-set",
+//      testFilePath  = "./data/multi-class-title-article-test-set",
+//      trainSetRate = 0.8
+//    )
+
+
     TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFiles(
-      JapanTimesDonwloader.`Multi-Classfiable of (train-set: title + article, test-set: only title)`,
-      trainFilePath = "./data/multi-class-title-article-train-set",
-      testFilePath  = "./data/multi-class-title-article-test-set",
+      JapanTimesDonwloader.`Multi-Classfiable of (train-set: many titles + article, test-set: only title)`(titleTimes = 10),
+      trainFilePath = "./data/multi-class-many-title-article-train-set",
+      testFilePath  = "./data/multi-class-many-title-article-test-set",
       trainSetRate = 0.8
     )
 

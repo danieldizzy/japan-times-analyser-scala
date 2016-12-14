@@ -123,6 +123,20 @@ object JapanTimesDonwloader{
   }
 
 
+  def `Multi-Classfiable of (train-set: many titles + article, test-set: only title)`(titleTimes: Int): TrainTestMultiClassifiable = new TrainTestMultiClassifiable {
+
+    override def trainTestMultiDataset(): TrainTestMultiDataset = {
+      val artsSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
+      TrainTestMultiDataset(artsSeq.map(arts => arts.map(art =>
+        TrainTestDocument(
+          trainDocument = EngDocument((art.title + " ")*titleTimes + " " + art.entity),
+          testDocument =  EngDocument(art.title)
+        )
+      )))
+    }
+  }
+
+
 
 
   //  override def multiDataset(): MultiDataset = {
