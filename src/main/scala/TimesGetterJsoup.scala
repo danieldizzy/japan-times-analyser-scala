@@ -2,6 +2,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
 import scala.collection.JavaConversions._
+import scala.util.Try
 
 object TimesGetterJsoup {
 
@@ -57,6 +58,20 @@ object TimesGetterJsoup {
     } catch {
       case _: Throwable => List.empty
     }
+  }
+
+  def getJapanTimesArticleOpt(url: String): Option[JapanTimesArticle] = {
+    // Go to Japan Times
+
+    println(s"Getting Article: ${url}")
+    Try{
+      val doc = Jsoup.connect(url).timeout(0).get()
+      JapanTimesArticle(
+        url = url,
+        title  = doc.select("#wrapper > div > div.main_content.content_styles > article > div.padding_block > header > hgroup > h1").get(0).text(),
+        entity = doc.getElementById("jtarticle").text
+      )
+    }.toOption
   }
 
 }

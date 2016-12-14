@@ -41,10 +41,17 @@ object Main {
 //      trainSetRate = 0.8)
 
 
+//    TrainAndTestFilesGenerator.generateMultiSvmLightFormatFiles(
+//      JapanTimesDataset,
+//      trainFilePath = "./data/multi-class-train-set",
+//      testFilePath  = "./data/multi-class-test-set",
+//      trainSetRate = 0.8
+//    )
+
     TrainAndTestFilesGenerator.generateMultiSvmLightFormatFiles(
-      JapanTimesDataset,
-      trainFilePath = "./data/multi-class-train-set",
-      testFilePath  = "./data/multi-class-test-set",
+      JapanTimesDonwloader.onlyTitleMultiClassifiable,
+      trainFilePath = "./data/multi-class-only-title-train-set",
+      testFilePath  = "./data/multi-class-only-title-test-set",
       trainSetRate = 0.8
     )
 
