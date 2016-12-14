@@ -1,7 +1,9 @@
+import org.apache.commons.exec.ExecuteException
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
 import scala.collection.JavaConversions._
+import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
 
 object TimesGetterJsoup {
@@ -72,6 +74,43 @@ object TimesGetterJsoup {
         entity = doc.getElementById("jtarticle").text
       )
     }.toOption
+  }
+
+  def getJapanTimesArticleOptFuture(url: String)(implicit ec: ExecutionContext): Future[Option[JapanTimesArticle]] =
+    Future(getJapanTimesArticleOpt(url))
+
+
+  /**
+    * get URLs Future
+    * @param pageToUrl
+    * @param pageLimit
+    * @return
+    */
+  def getUrlsFuture(pageToUrl : (Int) => String, pageLimit: Int)(implicit executionContext: ExecutionContext): Future[Seq[String]] = {
+    var urls = List.empty[String]
+
+    val futures: Seq[Future[Seq[String]]] = for(pageNum <- 1 to pageLimit)
+      yield Future {
+        val pageUrl = pageToUrl(pageNum)
+        val document: Document = {
+          var tryDoc: Try[Document] = null
+          while({
+            tryDoc = Try(Jsoup.connect(pageUrl).timeout(0).get())
+            tryDoc}.isFailure
+          ) {}
+          tryDoc.get
+        }
+        val artTags = document.getElementsByTag("article")
+        val urls = for {
+            artTag <- artTags.toStream
+              aTag = artTag.getElementsByTag("a").first()
+              url = aTag.attr("href")
+        } yield url
+        println(s"Got article urls from ${pageUrl}")
+        urls
+      }
+
+    Future.sequence(futures).map{_.flatten}
   }
 
 }

@@ -48,6 +48,11 @@ object Main {
 //      trainSetRate = 0.8
 //    )
 
+//    val MultiDataset(seq) = JapanTimesDonwloader.onlyTitleMultiClassifiable.multiDataset()
+//    val lengths = seq.flatMap(_.map(_.entity.length))
+//    val average = lengths.sum.toDouble / lengths.length
+//    println("Average length of titles " + average) // 55.72
+
     TrainAndTestFilesGenerator.generateMultiSvmLightFormatFiles(
       JapanTimesDonwloader.onlyTitleMultiClassifiable,
       trainFilePath = "./data/multi-class-only-title-train-set",

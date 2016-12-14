@@ -1,5 +1,7 @@
 import java.io.{File, PrintWriter}
 
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
 import scala.io.Source
 //import scala.util.Marshal
 import scala.pickling.Defaults._
@@ -41,6 +43,40 @@ object JapanTimesDonwloader{
     artsSeq
   }
 
+  private def optionsFlatten[T](opts: Seq[Option[T]]): Seq[T] =
+    opts.flatMap{
+      case Some(e) => List(e)
+      case None    => List.empty
+    }
+
+  private def concurrentDowlonad(): Seq[Seq[JapanTimesArticle]] = {
+    println("Downloading...")
+    val pageLimit = 30
+    val pageToUrls = Seq(
+      TimesGetterJsoup.economyPage _,
+      TimesGetterJsoup.politicPage _,
+      TimesGetterJsoup.techPage _,
+      TimesGetterJsoup.figurePage _,
+      TimesGetterJsoup.sumoPage _
+    )
+
+    import scala.concurrent.ExecutionContext.Implicits.global
+
+    val future: Future[Seq[Seq[JapanTimesArticle]]] = Future.traverse(pageToUrls){pageToUrl =>
+      val future = for {
+        urls: Seq[String]            <- TimesGetterJsoup.getUrlsFuture(pageToUrl, pageLimit)
+        arts: Seq[JapanTimesArticle] <- Future.sequence(urls.map{url => TimesGetterJsoup.getJapanTimesArticleOptFuture(url)}).map(optionsFlatten)
+      } yield arts
+      future
+    }
+
+    val artsSeq: Seq[Seq[JapanTimesArticle]] = Await.result(future, Duration.Inf)
+
+    println("Donwloaded!")
+
+    artsSeq
+  }
+
   /**
     * Download or use cache file
     * @return
@@ -50,7 +86,7 @@ object JapanTimesDonwloader{
       if(new File(japanTimesJsonFilePath).exists()){
         Source.fromFile(japanTimesJsonFilePath).mkString.unpickle[Seq[Seq[JapanTimesArticle]]]
       } else {
-        val docsSeq: Seq[Seq[JapanTimesArticle]]  = download()
+        val docsSeq: Seq[Seq[JapanTimesArticle]]  = concurrentDowlonad()//download()
         new PrintWriter(japanTimesJsonFilePath) {
           write(docsSeq.pickle.value)
           close()
