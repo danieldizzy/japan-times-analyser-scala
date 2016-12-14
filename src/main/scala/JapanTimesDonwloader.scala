@@ -109,9 +109,23 @@ object JapanTimesDonwloader{
     }
   }
 
+  lazy val `Multi-Classfiable of (train-set: title + article, test-set: only title)`: TrainTestMultiClassifiable = new TrainTestMultiClassifiable {
+
+    override def trainTestMultiDataset(): TrainTestMultiDataset = {
+      val artsSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
+      TrainTestMultiDataset(artsSeq.map(arts => arts.map(art =>
+        TrainTestDocument(
+          trainDocument = EngDocument(art.title + " " + art.entity),
+          testDocument =  EngDocument(art.title)
+        )
+      )))
+    }
+  }
 
 
-//  override def multiDataset(): MultiDataset = {
+
+
+  //  override def multiDataset(): MultiDataset = {
 //    val docsSeq: Seq[Seq[EngDocument]] =
 //      // if the cache file exists, use cache file for MultiDataset
 //      if(new File(japanTimesJsonFilePath).exists()){

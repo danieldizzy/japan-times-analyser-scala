@@ -2,7 +2,7 @@
   * Created by Ryo on 2016/11/25.
   */
 /**
-  * Data structure for Binary Classification
+  * Data structure for Multi Classification
   *
   * @param docsSeq
   */

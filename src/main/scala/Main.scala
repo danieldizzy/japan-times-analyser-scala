@@ -53,10 +53,17 @@ object Main {
 //    val average = lengths.sum.toDouble / lengths.length
 //    println("Average length of titles " + average) // 55.72
 
-    TrainAndTestFilesGenerator.generateMultiSvmLightFormatFiles(
-      JapanTimesDonwloader.onlyTitleMultiClassifiable,
-      trainFilePath = "./data/multi-class-only-title-train-set",
-      testFilePath  = "./data/multi-class-only-title-test-set",
+//    TrainAndTestFilesGenerator.generateMultiSvmLightFormatFiles(
+//      JapanTimesDonwloader.onlyTitleMultiClassifiable,
+//      trainFilePath = "./data/multi-class-only-title-train-set",
+//      testFilePath  = "./data/multi-class-only-title-test-set",
+//      trainSetRate = 0.8
+//    )
+
+    TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFiles(
+      JapanTimesDonwloader.`Multi-Classfiable of (train-set: title + article, test-set: only title)`,
+      trainFilePath = "./data/multi-class-title-article-train-set",
+      testFilePath  = "./data/multi-class-title-article-test-set",
       trainSetRate = 0.8
     )
 
