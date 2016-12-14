@@ -53,6 +53,8 @@ object Main {
 //    val average = lengths.sum.toDouble / lengths.length
 //    println("Average length of titles " + average) // 55.72
 
+
+    // Train-Set: only title, Test-Set: only title
 //    TrainAndTestFilesGenerator.generateMultiSvmLightFormatFiles(
 //      JapanTimesDonwloader.onlyTitleMultiClassifiable,
 //      trainFilePath = "./data/multi-class-only-title-train-set",
@@ -62,6 +64,7 @@ object Main {
 
 
 
+    // Train-Set: title+article, Test-Set: only title
 //    TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFiles(
 //      JapanTimesDonwloader.`Multi-Classfiable of (train-set: title + article, test-set: only title)`,
 //      trainFilePath = "./data/multi-class-title-article-train-set",
@@ -70,10 +73,11 @@ object Main {
 //    )
 
 
+    // Train-Set: many titles+article, Test-Set: only title
     TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFiles(
-      JapanTimesDonwloader.`Multi-Classfiable of (train-set: many titles + article, test-set: only title)`(titleTimes = 10),
-      trainFilePath = "./data/multi-class-many-title-article-train-set",
-      testFilePath  = "./data/multi-class-many-title-article-test-set",
+      JapanTimesDonwloader.`Multi-Classfiable of (train-set: many titles + article, test-set: only title)`(titleTimes = 20),
+      trainFilePath = "./data/multi-class-20-titles-article-train-set",
+      testFilePath  = "./data/multi-class-20-titles-article-test-set",
       trainSetRate = 0.8
     )
 
