@@ -81,7 +81,7 @@ object JapanTimesDonwloader{
     * Download or use cache file
     * @return
     */
-  private def getJapanTimesArticlesSeq(): Seq[Seq[JapanTimesArticle]] = {
+  def getJapanTimesArticlesSeq(): Seq[Seq[JapanTimesArticle]] = {
     // if the cache file exists, use cache file for MultiDataset
       if(new File(japanTimesJsonFilePath).exists()){
         Source.fromFile(japanTimesJsonFilePath).mkString.unpickle[Seq[Seq[JapanTimesArticle]]]

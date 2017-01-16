@@ -73,13 +73,15 @@ object Main {
 //    )
 
 
-    // Train-Set: many titles+article, Test-Set: only title
-    TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFiles(
-      JapanTimesDonwloader.`Multi-Classfiable of (train-set: many titles + article, test-set: only title)`(titleTimes = 20),
-      trainFilePath = "./data/multi-class-20-titles-article-train-set",
-      testFilePath  = "./data/multi-class-20-titles-article-test-set",
-      trainSetRate = 0.8
-    )
+//    // Train-Set: many titles+article, Test-Set: only title
+//    TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFiles(
+//      JapanTimesDonwloader.`Multi-Classfiable of (train-set: many titles + article, test-set: only title)`(titleTimes = 20),
+//      trainFilePath = "./data/multi-class-20-titles-article-train-set",
+//      testFilePath  = "./data/multi-class-20-titles-article-test-set",
+//      trainSetRate = 0.8
+//    )
 
+
+    TextGeneratorForGensim.generate(dirPath = "./gensim-text")
   }
 }
