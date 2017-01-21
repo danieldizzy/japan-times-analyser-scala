@@ -101,16 +101,26 @@ object Main {
 
     if(false) {
       // Generate article text from article data
-      TextGeneratorForGensim.generate(dirPath = "./gensim-text")
+      TextGeneratorForGensim.generateTextsSeparatedByGroups(dirPath = "./gensim-text")
     }
 
 
 
-    if(true) {
+    if(false) {
       // List titles for some articles
       val artsSeq: Seq[Seq[JapanTimesArticle]] = JapanTimesDonwloader.getJapanTimesArticlesSeq()
       artsSeq.flatMap(_.take(10)).map(_.title).foreach(println)
     }
+
+
+    if(true){
+      // Generate one big article text from article data
+      TextGeneratorForGensim.generateOneBigText(dirPath = "./gensim-text-for-word2vec")
+    }
+
+
+
+
 
   }
 }

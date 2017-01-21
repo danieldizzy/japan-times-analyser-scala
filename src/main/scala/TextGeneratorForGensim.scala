@@ -11,12 +11,11 @@ object TextGeneratorForGensim {
     * Generate each text file to the corresponding article
     * @param dirPath
     */
-  def generate(dirPath: String): Unit = {
-    val artssSeq: Seq[Seq[JapanTimesArticle]] = JapanTimesDonwloader.getJapanTimesArticlesSeq()
-    val EachCategoryNum = 20
+  def generateTextsSeparatedByGroups(dirPath: String): Unit = {
+    val artsSeq: Seq[Seq[JapanTimesArticle]] = JapanTimesDonwloader.getJapanTimesArticlesSeq()
 
     new File(dirPath).mkdir()
-    for((docs, groupIdx) <- artssSeq.zipWithIndex){
+    for((docs, groupIdx) <- artsSeq.zipWithIndex){
       val groupPath = s"${dirPath}/group${groupIdx+1}"
       new File(groupPath).mkdir()
       for((doc, docIdx) <- docs.zipWithIndex) {
@@ -30,5 +29,23 @@ object TextGeneratorForGensim {
         println(s"'${filePath}' finished")
       }
     }
+  }
+
+
+  /**
+    * Generate a big text file including all article
+    * @param dirPath
+    */
+  def generateOneBigText(dirPath: String): Unit = {
+    val artsSeq: Seq[Seq[JapanTimesArticle]] = JapanTimesDonwloader.getJapanTimesArticlesSeq()
+
+    new File(dirPath).mkdir()
+
+    val filePath = s"${dirPath}/jp_times.txt"
+    val fileWriter = new PrintWriter(new File(filePath))
+    artsSeq.flatten.foreach{art =>
+      fileWriter.println(art.entity)
+    }
+    fileWriter.close()
   }
 }
