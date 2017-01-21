@@ -82,6 +82,12 @@ object Main {
 //    )
 
 
-    TextGeneratorForGensim.generate(dirPath = "./gensim-text")
+//    TextGeneratorForGensim.generate(dirPath = "./gensim-text")
+
+
+    // List titles for some articles
+    val artsSeq: Seq[Seq[JapanTimesArticle]] = JapanTimesDonwloader.getJapanTimesArticlesSeq()
+    artsSeq.flatMap(_.take(10)).map(_.title).foreach(println)
+
   }
 }
