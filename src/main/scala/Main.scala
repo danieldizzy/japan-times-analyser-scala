@@ -1,4 +1,9 @@
+import java.io.{File, PrintWriter}
+
+import org.bson.types.BasicBSONList
+
 import scala.io.Source
+import scala.util.{Failure, Success}
 
 /**
   * Created by Ryo Ota on 2016/11/07.
@@ -113,9 +118,46 @@ object Main {
     }
 
 
-    if(true){
+    if(false){
       // Generate one big article text from article data
       TextGeneratorForGensim.generateOneBigText(dirPath = "./gensim-text-for-word2vec")
+    }
+
+
+    if(false){
+      val pycall = new PythonCall()
+      pycall.send(funcName = "word2vec", "was") match {
+        case Success(bsonList : BasicBSONList) =>
+
+          // Convert bsonList to Array[Double]
+          val featureVector: Array[Double] =
+            (0 until bsonList.size())
+              .map{idx => bsonList.get(idx).asInstanceOf[Double]}.toArray
+
+
+          println(featureVector.toList)
+
+        case Success(a) =>
+          println(s"Unexpected value: ${a}")
+
+        case Failure(exp) =>
+          exp.printStackTrace()
+      }
+      pycall.close()
+    }
+
+    if(true){
+
+      // make train-set file and test-set file (TFIDF & word2vec collaboration) for SVM light
+      TrainAndTestFilesGenerator.generateMultiSvmLightFormatFilesWithGenerator(
+        JapanTimesDataset,
+        trainFilePath = "./data/multi-tfidf-word2vec-train-set",
+        testFilePath  = "./data/multi-tfidf-word2vec-test-set",
+        trainSetRate  = 0.8,
+        generator     = FeatureVectorGeneratorE.`generate TFIDF & Word2Vec vectors and Words`
+      )
+
+
     }
 
 

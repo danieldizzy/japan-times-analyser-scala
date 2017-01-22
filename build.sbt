@@ -11,5 +11,8 @@ libraryDependencies ++= Seq(
   "org.seleniumhq.selenium" % "selenium-firefox-driver" % seleniumVersion,
 
   "org.scala-lang.modules" %% "scala-pickling" % "0.10.1",
-  "org.jsoup" % "jsoup" % "1.10.1"
+  "org.jsoup" % "jsoup" % "1.10.1",
+
+  "org.mongodb" % "mongo-java-driver" % "3.4.1"
+
 )
