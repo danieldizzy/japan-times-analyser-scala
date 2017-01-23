@@ -120,7 +120,7 @@ object Main {
 
     if(false){
       // Generate one big article text from article data
-      TextGeneratorForGensim.generateOneBigText(dirPath = "./gensim-text-for-word2vec")
+      TextGeneratorForGensim.generateOneBigTextWithTitle(dirPath = "./gensim-text-for-word2vec")
     }
 
 
@@ -146,8 +146,7 @@ object Main {
       pycall.close()
     }
 
-    if(true){
-
+    if(false){
       // make train-set file and test-set file (TFIDF & word2vec collaboration) for SVM light
       TrainAndTestFilesGenerator.generateMultiSvmLightFormatFilesWithGenerator(
         JapanTimesDataset,
@@ -156,8 +155,37 @@ object Main {
         trainSetRate  = 0.8,
         generator     = FeatureVectorGeneratorE.`generate TFIDF & Word2Vec vectors and Words`
       )
+    }
 
 
+    if(false){
+      // Generate one big article text from article data with title
+      TextGeneratorForGensim.generateOneBigTextWithTitle(dirPath = "./gensim-text-for-word2vec")
+    }
+
+
+    if(false) {
+      // Train-Set: many titles+article, Test-Set: only title
+      TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFilesWithGenerator(
+        JapanTimesDonwloader.`Multi-Classfiable of (train-set: many titles + article, test-set: only title)`(titleTimes = 20),
+        trainFilePath = "./data/multi-class-20-titles-tfidf-word2vec-article-train-set",
+        testFilePath  = "./data/multi-class-20-titles-tfidf-word2vec-article-test-set",
+        trainSetRate  = 0.8,
+        generator     = FeatureVectorGeneratorE.`generate TFIDF & Word2Vec vectors and Words`
+
+      )
+    }
+
+    if(true) {
+      // Train-Set: many titles+article, Test-Set: only title
+      TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFilesWithGenerator(
+        JapanTimesDonwloader.`Multi-Classfiable of (train-set: many titles + article, test-set: only title)`(titleTimes = 20),
+        trainFilePath = "./data/multi-class-20-titles-tfidf-word2vec-tfidf-article-train-set",
+        testFilePath  = "./data/multi-class-20-titles-tfidf-word2vec-tfidf-article-test-set",
+        trainSetRate  = 0.8,
+        generator     = FeatureVectorGeneratorE.`generate TFIDF vec ++ (Word2Vec*TFIDF) vectors and Words`
+
+      )
     }
 
 

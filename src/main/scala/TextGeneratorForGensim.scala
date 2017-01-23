@@ -48,4 +48,21 @@ object TextGeneratorForGensim {
     }
     fileWriter.close()
   }
+
+  /**
+    * Generate a big text file including all article with title
+    * @param dirPath
+    */
+  def generateOneBigTextWithTitle(dirPath: String): Unit = {
+    val artsSeq: Seq[Seq[JapanTimesArticle]] = JapanTimesDonwloader.getJapanTimesArticlesSeq()
+
+    new File(dirPath).mkdir()
+
+    val filePath = s"${dirPath}/jp_times_with_title.txt"
+    val fileWriter = new PrintWriter(new File(filePath))
+    artsSeq.flatten.foreach{art =>
+      fileWriter.println(s"${art.title} ${art.entity}")
+    }
+    fileWriter.close()
+  }
 }
