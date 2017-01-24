@@ -192,7 +192,7 @@ object Main {
 
     if(true) {
       NakSVMExecutor.executeSVM(
-        JapanTimesDataset,
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
         trainSetRate = 0.8
       )
     }
