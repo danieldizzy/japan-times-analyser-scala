@@ -95,6 +95,25 @@ object JapanTimesDonwloader{
       }
   }
 
+  /**
+    * Get LabeledJapanTimesArticles (label is Int (1~5)) to download or use cache file
+    * @return
+    */
+  def getLabeledJapanTimesArticles: Seq[LabelJapanTimesArticle[Int]] = {
+    val articlesSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
+
+    for{
+      (articles, index) <- articlesSeq.zipWithIndex
+      label = index+1
+      article           <- articles
+    } yield LabelJapanTimesArticle[Int](
+      label = label,
+      url = article.url,
+      title = article.title,
+      entity = article.entity
+    )
+  }
+
   lazy val onlyTitleMultiClassifiable: MultiClassifiable = new MultiClassifiable {
     override def multiDataset(): MultiDataset = {
       val artsSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()

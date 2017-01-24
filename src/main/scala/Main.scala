@@ -176,7 +176,7 @@ object Main {
       )
     }
 
-    if(true) {
+    if(false) {
       // Train-Set: many titles+article, Test-Set: only title
       TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFilesWithGenerator(
         JapanTimesDonwloader.`Multi-Classfiable of (train-set: many titles + article, test-set: only title)`(titleTimes = 20),
@@ -189,6 +189,13 @@ object Main {
     }
 
 
+
+    if(true) {
+      NakSVMExecutor.executeSVM(
+        JapanTimesDataset,
+        trainSetRate = 0.8
+      )
+    }
 
 
 

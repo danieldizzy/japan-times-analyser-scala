@@ -12,10 +12,10 @@ object FeatureVectorGeneratorE {
     * @param documents
     * @return
     */
-  def generateTFIDFVectorsAndWords(documents: Seq[EngDocument]): (Map[EngDocument, Array[Double]], Set[Word]) = {
+  def generateTFIDFVectorsAndWords(documents: Seq[Document]): (Map[Document, Array[Double]], Set[Word]) = {
 
     // TF map
-    val tfMap: Map[EngDocument, Map[Word, Int]] =
+    val tfMap: Map[Document, Map[Word, Int]] =
       documents.map(doc => (doc, doc.wordFreq)).toMap
 
     // All words in all documents
@@ -29,15 +29,18 @@ object FeatureVectorGeneratorE {
       }.toMap
 
     // Feature Vectors
-    val featureVectors: Map[EngDocument, Array[Double]] =
-      documents.map{doc =>
-        val featureVector = allWordsSet.toList.map { word =>
-          val N = documents.length
+    val featureVectors: Map[Document, Array[Double]] = {
+      val allWordList: List[Word] = allWordsSet.toList
+      val N = documents.length
+
+      documents.map { doc =>
+        val featureVector = allWordList.map { word =>
           tfMap(doc)(word) * Math.log(N.toDouble / dfMap(word))
         }.toArray
 
         (doc, featureVector)
       }.toMap
+    }
 
 
     // return a Feature Vectors and all words containing in all documents
@@ -50,10 +53,10 @@ object FeatureVectorGeneratorE {
     * @param documents
     * @return
     */
-  def `generate TFIDF & Word2Vec vectors and Words`(documents: Seq[EngDocument]): (Map[EngDocument, Array[Double]], Set[Word]) = {
+  def `generate TFIDF & Word2Vec vectors and Words`(documents: Seq[Document]): (Map[Document, Array[Double]], Set[Word]) = {
 
     // TF map
-    val tfMap: Map[EngDocument, Map[Word, Int]] =
+    val tfMap: Map[Document, Map[Word, Int]] =
     documents.map(doc => (doc, doc.wordFreq)).toMap
 
     // All words in all documents
@@ -103,7 +106,7 @@ object FeatureVectorGeneratorE {
     }
 
     // Feature Vectors
-    val featureVectors: Map[EngDocument, Array[Double]] =
+    val featureVectors: Map[Document, Array[Double]] =
     documents.map{doc =>
       val tfidfVec = allWordsSet.toList.map { word =>
         val N = documents.length
@@ -130,10 +133,10 @@ object FeatureVectorGeneratorE {
     * @param documents
     * @return
     */
-  def `generate TFIDF vec ++ (Word2Vec*TFIDF) vectors and Words`(documents: Seq[EngDocument]): (Map[EngDocument, Array[Double]], Set[Word]) = {
+  def `generate TFIDF vec ++ (Word2Vec*TFIDF) vectors and Words`(documents: Seq[Document]): (Map[Document, Array[Double]], Set[Word]) = {
 
     // TF map
-    val tfMap: Map[EngDocument, Map[Word, Int]] =
+    val tfMap: Map[Document, Map[Word, Int]] =
     documents.map(doc => (doc, doc.wordFreq)).toMap
 
     // All words in all documents
@@ -176,7 +179,7 @@ object FeatureVectorGeneratorE {
 
 
     // Feature Vectors
-    val featureVectors: Map[EngDocument, Array[Double]] =
+    val featureVectors: Map[Document, Array[Double]] =
     documents.map{doc =>
       val tfidfVec = allWordsSet.toList.map { word =>
         val N = documents.length

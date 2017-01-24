@@ -229,7 +229,7 @@ object TrainAndTestFilesGenerator {
     * @param testFilePath
     * @param trainSetRate
     */
-  def generateMultiSvmLightFormatFilesWithGenerator(multiClassifiable: MultiClassifiable, trainFilePath: String, testFilePath: String, trainSetRate: Double, generator: (Seq[EngDocument] => (Map[EngDocument, Array[Double]], Set[Word]))): Unit = {
+  def generateMultiSvmLightFormatFilesWithGenerator(multiClassifiable: MultiClassifiable, trainFilePath: String, testFilePath: String, trainSetRate: Double, generator: (Seq[Document] => (Map[Document, Array[Double]], Set[Word]))): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
@@ -296,7 +296,7 @@ object TrainAndTestFilesGenerator {
     * @param testFilePath
     * @param trainSetRate
     */
-  def generateTrainTestMultiSvmLightFormatFilesWithGenerator(multiClassifiable: TrainTestMultiClassifiable, trainFilePath: String, testFilePath: String, trainSetRate: Double, generator: (Seq[EngDocument] => (Map[EngDocument, Array[Double]], Set[Word]))): Unit = {
+  def generateTrainTestMultiSvmLightFormatFilesWithGenerator(multiClassifiable: TrainTestMultiClassifiable, trainFilePath: String, testFilePath: String, trainSetRate: Double, generator: (Seq[Document] => (Map[Document, Array[Double]], Set[Word]))): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)

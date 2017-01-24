@@ -31,7 +31,7 @@ object TimesGetterJsoup {
 
     for(pageNum <- 1 to pageLimit) {
 
-      val document: Document = Jsoup.connect(pageToUrl(pageNum)).timeout(0).get()
+      val document: org.jsoup.nodes.Document = Jsoup.connect(pageToUrl(pageNum)).timeout(0).get()
 
       val artTags = document.getElementsByTag("article")
       for(artTag <- artTags.toStream){
@@ -92,8 +92,8 @@ object TimesGetterJsoup {
     val futures: Seq[Future[Seq[String]]] = for(pageNum <- 1 to pageLimit)
       yield Future {
         val pageUrl = pageToUrl(pageNum)
-        val document: Document = {
-          var tryDoc: Try[Document] = null
+        val document: org.jsoup.nodes.Document = {
+          var tryDoc: Try[org.jsoup.nodes.Document] = null
           while({
             tryDoc = Try(Jsoup.connect(pageUrl).timeout(0).get())
             tryDoc}.isFailure
