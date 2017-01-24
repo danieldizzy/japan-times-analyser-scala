@@ -16,6 +16,9 @@ libraryDependencies ++= Seq(
   "org.mongodb" % "mongo-java-driver" % "3.4.1",
 
   // nak
-  "org.scalanlp" % "nak" % "1.2.1"
+  "org.scalanlp" % "nak_2.10" % "1.3",
+
+  "org.apache.spark" %% "spark-mllib" % "2.1.0",
+  "com.github.fommil.netlib" % "all" % "1.1.2"  // to improve performance
 
 )

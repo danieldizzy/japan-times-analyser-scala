@@ -190,10 +190,27 @@ object Main {
 
 
 
-    if(true) {
+    if(false) {
       NakSVMExecutor.executeSVM(
         JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
         trainSetRate = 0.8
+      )
+    }
+
+
+    if(false){
+      val model = Word2VecGenerator
+        .calcOrGetCacheModel(vectorSize = 100, jptimesFilePath = "./gensim-text-for-word2vec/jp_times_with_title.txt")
+
+      println(model.transform("Trump"))
+    }
+
+
+    if(true) {
+      NakSVMExecutor.executeTFIDFAndWord2Vec(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
+        trainSetRate = 0.8,
+        "./gensim-text-for-word2vec/jp_times_with_title.txt"
       )
     }
 
