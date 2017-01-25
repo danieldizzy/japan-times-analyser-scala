@@ -1,11 +1,14 @@
-import org.apache.commons.exec.ExecuteException
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
+package io.github.nwtgck.downloader
 
-import scala.collection.JavaConversions._
+import io.github.nwtgck.datatype.JapanTimesArticle
+import org.jsoup.Jsoup
+
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
 
+/**
+  * Created by Jimmy on 25/01/2017.
+  */
 object TimesGetterJsoup {
 
   // page creator for "figure"
@@ -22,6 +25,7 @@ object TimesGetterJsoup {
 
   /**
     * get URLs
+    *
     * @param pageToUrl
     * @param pageLimit
     * @return
@@ -32,6 +36,8 @@ object TimesGetterJsoup {
     for(pageNum <- 1 to pageLimit) {
 
       val document: org.jsoup.nodes.Document = Jsoup.connect(pageToUrl(pageNum)).timeout(0).get()
+
+      import scala.collection.JavaConversions._
 
       val artTags = document.getElementsByTag("article")
       for(artTag <- artTags.toStream){
@@ -47,6 +53,7 @@ object TimesGetterJsoup {
 
   /**
     * get article
+    *
     * @param url
     * @return
     */
@@ -82,6 +89,7 @@ object TimesGetterJsoup {
 
   /**
     * get URLs Future
+    *
     * @param pageToUrl
     * @param pageLimit
     * @return
@@ -101,6 +109,7 @@ object TimesGetterJsoup {
           tryDoc.get
         }
         val artTags = document.getElementsByTag("article")
+        import scala.collection.JavaConversions._
         val urls = for {
             artTag <- artTags.toStream
               aTag = artTag.getElementsByTag("a").first()

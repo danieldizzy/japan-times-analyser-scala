@@ -1,4 +1,9 @@
+package io.github.nwtgck.text_generator
+
 import java.io.{File, PrintWriter}
+
+import io.github.nwtgck.datatype._
+import io.github.nwtgck.tfidf.FeatureVectorGeneratorE
 
 /**
   * A training-set file and test-set file generator
@@ -7,6 +12,7 @@ object TrainAndTestFilesGenerator {
 
   /**
     * Generate a train-set file and a test-set file in SVM light Format
+    *
     * @param binaryClassifiable
     * @param trainFilePath
     * @param testFilePath
@@ -84,6 +90,7 @@ object TrainAndTestFilesGenerator {
 
   /**
     * Generate a train-set file and a test-set file in SVM light Format
+    *
     * @param multiClassifiable
     * @param trainFilePath
     * @param testFilePath
@@ -152,6 +159,7 @@ object TrainAndTestFilesGenerator {
 
   /**
     * Generate a train-set file and a test-set file in SVM light Format
+    *
     * @param multiClassifiable
     * @param trainFilePath
     * @param testFilePath
@@ -224,6 +232,7 @@ object TrainAndTestFilesGenerator {
 
   /**
     * Generate a train-set file and a test-set file in SVM light Format with a generator
+    *
     * @param multiClassifiable
     * @param trainFilePath
     * @param testFilePath
@@ -291,6 +300,7 @@ object TrainAndTestFilesGenerator {
 
   /**
     * Generate a train-set file and a test-set file with generator in SVM light Format
+    *
     * @param multiClassifiable
     * @param trainFilePath
     * @param testFilePath

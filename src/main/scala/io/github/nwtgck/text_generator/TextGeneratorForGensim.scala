@@ -1,6 +1,9 @@
+package io.github.nwtgck.text_generator
+
 import java.io.{File, PrintWriter}
 
-import scala.io.Source
+import io.github.nwtgck.datatype.JapanTimesArticle
+import io.github.nwtgck.downloader.JapanTimesDonwloader
 
 /**
   * Created by Ryo on 2017/01/15.
@@ -9,6 +12,7 @@ object TextGeneratorForGensim {
 
   /**
     * Generate each text file to the corresponding article
+    *
     * @param dirPath
     */
   def generateTextsSeparatedByGroups(dirPath: String): Unit = {
@@ -34,6 +38,7 @@ object TextGeneratorForGensim {
 
   /**
     * Generate a big text file including all article
+    *
     * @param dirPath
     */
   def generateOneBigText(dirPath: String): Unit = {
@@ -51,6 +56,7 @@ object TextGeneratorForGensim {
 
   /**
     * Generate a big text file including all article with title
+    *
     * @param dirPath
     */
   def generateOneBigTextWithTitle(dirPath: String): Unit = {

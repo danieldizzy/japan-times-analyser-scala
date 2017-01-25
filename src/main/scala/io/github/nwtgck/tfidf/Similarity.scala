@@ -1,3 +1,5 @@
+package io.github.nwtgck.tfidf
+
 /**
   * Created by Jimmy on 2016/11/14.
   */

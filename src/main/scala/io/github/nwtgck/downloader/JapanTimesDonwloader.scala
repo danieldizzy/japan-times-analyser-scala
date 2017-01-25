@@ -1,12 +1,13 @@
+package io.github.nwtgck.downloader
+
 import java.io.{File, PrintWriter}
+
+import io.github.nwtgck.datatype._
+import io.github.nwtgck._
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 import scala.io.Source
-//import scala.util.Marshal
-import scala.pickling.Defaults._
-import scala.pickling.json._
-
 
 /**
   * Created by Ryo on 2016/11/25.
@@ -79,10 +80,14 @@ object JapanTimesDonwloader{
 
   /**
     * Download or use cache file
+    *
     * @return
     */
   def getJapanTimesArticlesSeq(): Seq[Seq[JapanTimesArticle]] = {
     // if the cache file exists, use cache file for MultiDataset
+      import scala.pickling.Defaults._
+      import scala.pickling.json._
+
       if(new File(japanTimesJsonFilePath).exists()){
         Source.fromFile(japanTimesJsonFilePath).mkString.unpickle[Seq[Seq[JapanTimesArticle]]]
       } else {

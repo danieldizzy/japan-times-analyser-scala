@@ -1,6 +1,5 @@
-/**
-  * Created by Ryo on 2016/11/25.
-  */
+package io.github.nwtgck.datatype
+
 /**
   * Data structure for Binary Classification
   *

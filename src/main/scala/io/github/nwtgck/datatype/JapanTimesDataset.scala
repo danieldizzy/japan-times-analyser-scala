@@ -1,10 +1,10 @@
+package io.github.nwtgck.datatype
+
 import java.io.{File, PrintWriter}
 
-import scala.io.Source
-//import scala.util.Marshal
-import scala.pickling.Defaults._
-import scala.pickling.json._
+import io.github.nwtgck.downloader.TimesGetterJsoup
 
+import scala.io.Source
 
 /**
   * Created by Ryo on 2016/11/25.
@@ -39,6 +39,9 @@ object JapanTimesDataset extends MultiClassifiable{
   }
 
   override def multiDataset(): MultiDataset = {
+    import scala.pickling.Defaults._
+    import scala.pickling.json._
+
     val docsSeq: Seq[Seq[EngDocument]] =
       // if the cache file exists, use cache file for MultiDataset
       if(new File(japanTimesJsonFilePath).exists()){

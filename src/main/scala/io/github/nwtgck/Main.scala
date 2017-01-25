@@ -1,5 +1,13 @@
-import java.io.{File, PrintWriter}
+package io.github.nwtgck
 
+import io.github.nwtgck.dataset.FigureAndSumoDataset
+import io.github.nwtgck.datatype.{EngDocument, JapanTimesArticle, JapanTimesDataset, MultiDataset}
+import io.github.nwtgck.downloader.JapanTimesDonwloader
+import io.github.nwtgck.pycall.PythonCall
+import io.github.nwtgck.svm.NakSVMExecutor
+import io.github.nwtgck.text_generator.{TextGeneratorForGensim, TrainAndTestFilesGenerator}
+import io.github.nwtgck.tfidf.FeatureVectorGeneratorE
+import io.github.nwtgck.word2vec.Word2VecGenerator
 import org.bson.types.BasicBSONList
 
 import scala.io.Source
@@ -206,12 +214,16 @@ object Main {
     }
 
 
-    if(true) {
+    if(false) {
       NakSVMExecutor.executeTFIDFAndWord2Vec(
         JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
         trainSetRate = 0.8,
         "./gensim-text-for-word2vec/jp_times_with_title.txt"
       )
+    }
+
+    if(true){
+      println(JapanTimesDonwloader.getLabeledJapanTimesArticles.head)
     }
 
 

@@ -1,18 +1,11 @@
+package io.github.nwtgck.dataset
+
 import java.io.PrintWriter
 
-import scala.io.Source
-
-import java.io.{File, FileOutputStream, PrintWriter}
-
-import org.openqa.selenium.firefox.{FirefoxDriver, FirefoxProfile}
+import io.github.nwtgck.datatype.{BinaryClassifiable, BinaryDataset, EngDocument}
+import io.github.nwtgck.downloader.TimesGetterJsoup
 
 import scala.io.Source
-//import scala.util.Marshal
-import scala.pickling._
-import json._
-import scala.pickling.Defaults._
-import scala.pickling.json._
-
 
 /**
   * Created by Ryo on 2016/11/25.
@@ -46,6 +39,8 @@ object FigureAndSumoDataset extends BinaryClassifiable{
     * @return (figureUrls, sumoUrls)
     */
   private[this] lazy val offlineJTDocsPair: (List[EngDocument], List[EngDocument]) = {
+    import scala.pickling.Defaults._
+    import scala.pickling.json._
     Source.fromFile(japanTimesJsonFilePath).mkString.unpickle[(List[EngDocument], List[EngDocument])]
   }
 
@@ -53,6 +48,8 @@ object FigureAndSumoDataset extends BinaryClassifiable{
     * Donwload Japan Times documents into a file
     */
   private def downloadJapanTimesDocs(): Unit = {
+    import scala.pickling.Defaults._
+    import scala.pickling.json._
     new PrintWriter(japanTimesJsonFilePath) {
       write(onlineJTDocsPair().pickle.value)
       close()

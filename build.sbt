@@ -6,6 +6,8 @@ scalaVersion := "2.10.4"
 
 val seleniumVersion = "2.53.1"
 
+scalacOptions ++= Seq("-Xmax-classfile-name","78")
+
 libraryDependencies ++= Seq(
   "org.seleniumhq.selenium" % "selenium-java" % seleniumVersion,
   "org.seleniumhq.selenium" % "selenium-firefox-driver" % seleniumVersion,

@@ -1,3 +1,5 @@
+package io.github.nwtgck.word2vec
+
 import java.io.File
 
 import org.apache.spark.mllib.feature.{Word2Vec, Word2VecModel}

@@ -1,3 +1,5 @@
+package io.github.nwtgck.datatype
+
 /**
   * An article of Japan Times
   */

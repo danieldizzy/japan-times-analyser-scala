@@ -1,9 +1,13 @@
+package io.github.nwtgck.svm
+
 import breeze.linalg.{DenseVector, SparseVector}
 import breeze.stats.distributions.Rand
 import com.typesafe.scalalogging.Logging
+import io.github.nwtgck.datatype.{LabeledMultiClassifiable, LabeledMultiDataset, Word}
+import io.github.nwtgck.tfidf.FeatureVectorGeneratorE
+import io.github.nwtgck.word2vec.Word2VecGenerator
 import nak.classify.SVM
 import nak.data.Example
-import org.apache.spark.mllib.linalg.Vectors
 
 /**
   * Created by Ryo on 2017/01/24.

@@ -1,3 +1,7 @@
+package io.github.nwtgck.tfidf
+
+import io.github.nwtgck.datatype.{Document, Word}
+import io.github.nwtgck.pycall.PythonCall
 import org.bson.types.BasicBSONList
 
 import scala.util.{Failure, Success}

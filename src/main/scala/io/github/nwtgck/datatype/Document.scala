@@ -1,3 +1,5 @@
+package io.github.nwtgck.datatype
+
 /**
   * Created by Ryo on 2017/01/24.
   */
@@ -14,6 +16,7 @@ abstract class Document {
   /**
     * Get a frequency of contained words
     * CAUTION) default value is 0
+    *
     * @return
     */
   lazy val wordFreq: Map[Word, Int] =

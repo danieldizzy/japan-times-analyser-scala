@@ -1,3 +1,5 @@
+package io.github.nwtgck.pycall
+
 import java.io.Closeable
 import java.net.Socket
 import java.nio.ByteBuffer
