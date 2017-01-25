@@ -1,7 +1,8 @@
-package io.github.nwtgck.datatype
+package io.github.nwtgck.dataset
 
 import java.io.{File, PrintWriter}
 
+import io.github.nwtgck.datatype.{EngDocument, MultiClassifiable, MultiDataset}
 import io.github.nwtgck.downloader.TimesGetterJsoup
 
 import scala.io.Source

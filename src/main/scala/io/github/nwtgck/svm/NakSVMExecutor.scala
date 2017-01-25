@@ -9,6 +9,8 @@ import io.github.nwtgck.word2vec.Word2VecGenerator
 import nak.classify.SVM
 import nak.data.Example
 
+import scala.io.Source
+
 /**
   * Created by Ryo on 2017/01/24.
   */
@@ -138,6 +140,51 @@ object NakSVMExecutor {
 
     println("Train starting...")
     val trainer = new SVM.SMOTrainer[Int, breeze.linalg.Vector[Double]](maxIterations = 1000) with Logging
+    val classifier = trainer.train(trainVecs)
+    println("Train finished!")
+
+
+    for( ex <- testVecs) {
+      val guessed = classifier.classify(ex.features)
+      println(guessed,ex.label)
+    }
+
+    // Number of correct
+    val correctNum = testVecs.count{ex =>
+      val guessed = classifier.classify(ex.features)
+      guessed == ex.label
+    }
+
+    // Print the accuracy
+    println(s"Accuracy: ${correctNum.toDouble / testVecs.length}")
+
+  }
+
+
+  def svmSampleCode(): Unit = {
+
+    /** Reference: [[nak.classify.SVM.main()]]*/
+
+    import nak.data._
+
+    val SPAM_FILE_PATH: String = "./data/spam.data" // Get from: http://www-stat.stanford.edu/~tibs/ElemStatLearn/datasets/spam.data
+    val data = DataMatrix.fromSource(Source.fromFile(SPAM_FILE_PATH), labelColumn = -1, dropRow = true, labelReader = _.toInt)
+
+    val vectors = data.rows.map { _.map { v2 => v2 / breeze.linalg.norm(v2,2) }}
+
+    // Rate of the number of train set
+    val trainSetRate = 0.8
+
+    // Split the vectors into vectors for train and vectors for test
+    val (trainVecs, testVecs) =
+      Rand.permutation(vectors.length).draw.map(vectors) // Shuffle the vectors
+        .splitAt((vectors.length*trainSetRate).toInt)    // Split into train and test
+
+    // Print the number of total and train and test
+    println(s"Total: ${vectors.length}, Train: ${trainVecs.length}, Test: ${testVecs.length}")
+
+    println("Train starting...")
+    val trainer = new SVM.SMOTrainer[Int,DenseVector[Double]](maxIterations = 1000) with Logging
     val classifier = trainer.train(trainVecs)
     println("Train finished!")
 

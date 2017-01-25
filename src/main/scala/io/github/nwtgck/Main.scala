@@ -1,7 +1,7 @@
 package io.github.nwtgck
 
-import io.github.nwtgck.dataset.FigureAndSumoDataset
-import io.github.nwtgck.datatype.{EngDocument, JapanTimesArticle, JapanTimesDataset, MultiDataset}
+import io.github.nwtgck.dataset.{FigureAndSumoDataset, JapanTimesDataset}
+import io.github.nwtgck.datatype.{EngDocument, JapanTimesArticle, MultiDataset}
 import io.github.nwtgck.downloader.JapanTimesDonwloader
 import io.github.nwtgck.pycall.PythonCall
 import io.github.nwtgck.svm.NakSVMExecutor
@@ -222,8 +222,13 @@ object Main {
       )
     }
 
-    if(true){
+    if(false){
       println(JapanTimesDonwloader.getLabeledJapanTimesArticles.head)
+    }
+
+
+    if(true){
+      NakSVMExecutor.svmSampleCode()
     }
 
 
