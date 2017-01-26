@@ -220,12 +220,21 @@ object Main {
     }
 
 
-    if(true) {
+    if(false) {
       LogisticRegressionExecutor.executeTFIDFAndWord2Vec(
         JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
         trainSetRate = 0.8,
         "./gensim-text-for-word2vec/jp_times_with_title.txt",
         word2VecDem = 100,
+        crossValidationTimes = 10
+      )
+    }
+
+    if(true) {
+      LogisticRegressionExecutor.executeTFIDF(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
+        trainSetRate = 0.8,
+        "./gensim-text-for-word2vec/jp_times_with_title.txt",
         crossValidationTimes = 10
       )
     }
