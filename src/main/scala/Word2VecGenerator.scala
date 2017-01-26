@@ -7,7 +7,7 @@ import org.apache.spark.{SparkConf, SparkContext}
   * Created by Jimmy on 24/01/2017.
   */
 object Word2VecGenerator {
-  def calcOrGetCacheModel(vectorSize: Int, jptimesFilePath: String) = {
+  def calcOrGetCacheModel(sparkContext: SparkContext, vectorSize: Int, jptimesFilePath: String) = {
 
     /** [[jptimesFilePath]] file is required */
     require(new File(jptimesFilePath).exists())
@@ -15,18 +15,16 @@ object Word2VecGenerator {
     val corpusPath       = "./data/cache-word2vec-courpus"
     val modelPath        = "./data/cache-word2vec-model"
 
-    val sc = new SparkContext(new SparkConf().setAppName("JPTIMES").setMaster("local[*]"))
-
     if(!new File(corpusPath).exists()){
-      sc.textFile(jptimesFilePath).saveAsTextFile(corpusPath)
+      sparkContext.textFile(jptimesFilePath).saveAsTextFile(corpusPath)
     }
 
-    val input = sc.textFile(corpusPath).map(_.split(" ").toVector)
+    val input = sparkContext.textFile(corpusPath).map(_.split(" ").toVector)
 
 
     val model =
       if(new File(modelPath).exists()){
-        Word2VecModel.load(sc, modelPath)
+        Word2VecModel.load(sparkContext, modelPath)
       } else {
         val _model = new Word2Vec()
           .setVectorSize(vectorSize)
@@ -34,7 +32,7 @@ object Word2VecGenerator {
           //          .setMinCount(1)
           .fit(input)
 
-        _model.save(sc, modelPath)
+        _model.save(sparkContext, modelPath)
         _model
       }
     model

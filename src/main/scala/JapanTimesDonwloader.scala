@@ -16,16 +16,17 @@ object JapanTimesDonwloader{
   private val japanTimesJsonFilePath = "./data/japan-times-multi-articles.json"
 
 
+  private val pageToUrls = Seq(
+    TimesGetterJsoup.economyPage _,
+    TimesGetterJsoup.politicPage _,
+    TimesGetterJsoup.techPage _,
+    TimesGetterJsoup.figurePage _,
+    TimesGetterJsoup.sumoPage _
+  )
+
   private def download(): Seq[Seq[JapanTimesArticle]] = {
     println("Downloading...")
     val pageLimit = 30
-    val pageToUrls = Seq(
-      TimesGetterJsoup.economyPage _,
-      TimesGetterJsoup.politicPage _,
-      TimesGetterJsoup.techPage _,
-      TimesGetterJsoup.figurePage _,
-      TimesGetterJsoup.sumoPage _
-    )
 
 
     val artsSeq: Seq[Seq[JapanTimesArticle]] = pageToUrls.map{ pageToUrl =>
@@ -157,7 +158,8 @@ object JapanTimesDonwloader{
   }
 
   def `Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`: LabeledMultiClassifiable[Int] = new LabeledMultiClassifiable[Int] {
-    override def multiDataset(): LabeledMultiDataset[Int] = LabeledMultiDataset(getLabeledJapanTimesArticles)
+    override def multiDataset(): LabeledMultiDataset[Int] =
+      LabeledMultiDataset(docs = getLabeledJapanTimesArticles, classNum = pageToUrls.length)
   }
 
 

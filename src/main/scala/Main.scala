@@ -1,5 +1,6 @@
 import java.io.{File, PrintWriter}
 
+import org.apache.spark.{SparkConf, SparkContext}
 import org.bson.types.BasicBSONList
 
 import scala.io.Source
@@ -191,6 +192,7 @@ object Main {
 
 
     if(false) {
+      // [CAUTION] This makes a error
       NakSVMExecutor.executeSVM(
         JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
         trainSetRate = 0.8
@@ -199,14 +201,17 @@ object Main {
 
 
     if(false){
+      // Make a SparkContext
+      val sparkContext = new SparkContext(new SparkConf().setAppName("JPTIMES").setMaster("local[*]"))
       val model = Word2VecGenerator
-        .calcOrGetCacheModel(vectorSize = 100, jptimesFilePath = "./gensim-text-for-word2vec/jp_times_with_title.txt")
+        .calcOrGetCacheModel(sparkContext = sparkContext, vectorSize = 100, jptimesFilePath = "./gensim-text-for-word2vec/jp_times_with_title.txt")
 
       println(model.transform("Trump"))
     }
 
 
-    if(true) {
+    if(false) {
+      // [CAUTION] This makes a error
       NakSVMExecutor.executeTFIDFAndWord2Vec(
         JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
         trainSetRate = 0.8,
@@ -214,6 +219,16 @@ object Main {
       )
     }
 
+
+    if(true) {
+      LogisticRegressionExecutor.executeTFIDFAndWord2Vec(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
+        trainSetRate = 0.8,
+        "./gensim-text-for-word2vec/jp_times_with_title.txt",
+        word2VecDem = 100,
+        crossValidationTimes = 10
+      )
+    }
 
 
   }
