@@ -230,7 +230,7 @@ object Main {
       )
     }
 
-    if(true) {
+    if(false) {
       LogisticRegressionExecutor.executeTFIDF(
         JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
         trainSetRate = 0.8,
@@ -240,5 +240,78 @@ object Main {
     }
 
 
+    if(false) {
+      // [Setting]
+      // TFIDF Normalization   : Enable
+      // Word2vec Normalization: Enable
+      LogisticRegressionExecutor.`execute (Normalized TFIDF) ++ (Normalized Word2Vec)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
+        trainSetRate = 0.8,
+        "./gensim-text-for-word2vec/jp_times_with_title.txt",
+        word2VecDem = 100,
+        crossValidationTimes = 10,
+        enableNormalizationForTFIDF  = true,
+        enableNormaliztionForWord2vec = true
+      )
+
+      // [Result] (it can be changed because of random)
+//      word2vec abs max: 93.59978816879448
+//      SVM abx max     : 166.9562181907852
+//
+//      Average Accuracy: 0.9594017094017093
+//      Max Accuracy    : 0.9786324786324786
+//      Min Accuracy    : 0.9358974358974359
+    }
+
+
+    if(false) {
+      // [Setting]
+      // TFIDF Normalization   : Disable
+      // Word2vec Normalization: Enable
+      LogisticRegressionExecutor.`execute (Normalized TFIDF) ++ (Normalized Word2Vec)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
+        trainSetRate = 0.8,
+        "./gensim-text-for-word2vec/jp_times_with_title.txt",
+        word2VecDem = 100,
+        crossValidationTimes = 10,
+        enableNormalizationForTFIDF   = false,
+        enableNormaliztionForWord2vec = true
+      )
+      // [Result] (it can be changed because of random)
+//      word2vec abs max: 93.59978816879448
+//      SVM abx max     : 166.9562181907852
+//
+//      Average Accuracy: 0.9675213675213676
+//      Max Accuracy    : 0.9914529914529915
+//      Min Accuracy    : 0.9401709401709402
+    }
+
+
   }
+
+
+  if(true) {
+    // TFIDF Normalization   : Enable
+    // Word2vec Normalization: Disable
+    LogisticRegressionExecutor.`execute (Normalized TFIDF) ++ (Normalized Word2Vec)`(
+      JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
+      trainSetRate = 0.8,
+      "./gensim-text-for-word2vec/jp_times_with_title.txt",
+      word2VecDem = 100,
+      crossValidationTimes = 10,
+      enableNormalizationForTFIDF   = true,
+      enableNormaliztionForWord2vec = false
+    )
+
+    // [Result] (it can be changed because of random)
+//    Average Accuracy: 0.9675213675213674
+//    Max Accuracy    : 0.9743589743589743
+//    Min Accuracy    : 0.9529914529914529
+//    -----------------------------------
+//    SVM abx max     : 166.9562181907852
+//    word2vec abs max: 93.59978816879448
+
+  }
+
+
 }
