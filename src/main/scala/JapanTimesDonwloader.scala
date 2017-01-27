@@ -13,7 +13,8 @@ import scala.pickling.json._
   */
 object JapanTimesDonwloader{
 
-  private val japanTimesJsonFilePath = "./data/japan-times-multi-articles.json"
+  @deprecated
+  private val __globalJapanTimesJsonFilePath = "./data/japan-times-multi-articles.json"
 
 
   private val pageToUrls = Seq(
@@ -78,17 +79,55 @@ object JapanTimesDonwloader{
     artsSeq
   }
 
+  private def concurrentDowlonadWithPageToUrls(pageLimit: Int, pageToUrls: Seq[Int => String]): Seq[Seq[JapanTimesArticle]] = {
+    println("Downloading...")
+
+    import scala.concurrent.ExecutionContext.Implicits.global
+
+    val future: Future[Seq[Seq[JapanTimesArticle]]] = Future.traverse(pageToUrls){pageToUrl =>
+      val future = for {
+        urls: Seq[String]            <- TimesGetterJsoup.getUrlsFuture(pageToUrl, pageLimit)
+        arts: Seq[JapanTimesArticle] <- Future.sequence(urls.map{url => TimesGetterJsoup.getJapanTimesArticleOptFuture(url)}).map(optionsFlatten)
+      } yield arts
+      future
+    }
+
+    val artsSeq: Seq[Seq[JapanTimesArticle]] = Await.result(future, Duration.Inf)
+
+    println("Donwloaded!")
+
+    artsSeq
+  }
+
+  /**
+    * Download or use cache file
+    * @return
+    */
+  def getJapanTimesArticlesSeqByPath(downloadInfo: DownloadInfo): Seq[Seq[JapanTimesArticle]] = {
+    // if the cache file exists, use cache file for MultiDataset
+    if(new File(downloadInfo.storedPath).exists()){
+      Source.fromFile(downloadInfo.storedPath).mkString.unpickle[Seq[Seq[JapanTimesArticle]]]
+    } else {
+      val docsSeq: Seq[Seq[JapanTimesArticle]]  = concurrentDowlonadWithPageToUrls(pageLimit = downloadInfo.pageLimit, pageToUrls = downloadInfo.pageToUrls)//download()
+      new PrintWriter(downloadInfo.storedPath) {
+        write(docsSeq.pickle.value)
+        close()
+      }
+      docsSeq
+    }
+  }
+
   /**
     * Download or use cache file
     * @return
     */
   def getJapanTimesArticlesSeq(): Seq[Seq[JapanTimesArticle]] = {
     // if the cache file exists, use cache file for MultiDataset
-      if(new File(japanTimesJsonFilePath).exists()){
-        Source.fromFile(japanTimesJsonFilePath).mkString.unpickle[Seq[Seq[JapanTimesArticle]]]
+      if(new File(__globalJapanTimesJsonFilePath).exists()){
+        Source.fromFile(__globalJapanTimesJsonFilePath).mkString.unpickle[Seq[Seq[JapanTimesArticle]]]
       } else {
         val docsSeq: Seq[Seq[JapanTimesArticle]]  = concurrentDowlonad()//download()
-        new PrintWriter(japanTimesJsonFilePath) {
+        new PrintWriter(__globalJapanTimesJsonFilePath) {
           write(docsSeq.pickle.value)
           close()
         }
@@ -98,7 +137,27 @@ object JapanTimesDonwloader{
 
   /**
     * Get LabeledJapanTimesArticles (label is Int (1~5)) to download or use cache file
- *
+    *
+    * @return
+    */
+  def getLabeledJapanTimesArticlesByPath(downloadInfo: DownloadInfo): Seq[LabeledJapanTimesArticle[Int]] = {
+    val articlesSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeqByPath(downloadInfo)
+
+    for{
+      (articles, index) <- articlesSeq.zipWithIndex
+      label = index+1
+      article           <- articles
+    } yield LabeledJapanTimesArticle[Int](
+      label = label,
+      url = article.url,
+      title = article.title,
+      entity = article.entity
+    )
+  }
+
+  /**
+    * Get LabeledJapanTimesArticles (label is Int (1~5)) to download or use cache file
+    *
     * @return
     */
   def getLabeledJapanTimesArticles: Seq[LabeledJapanTimesArticle[Int]] = {
@@ -157,9 +216,9 @@ object JapanTimesDonwloader{
     }
   }
 
-  def `Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`: LabeledMultiClassifiable[Int] = new LabeledMultiClassifiable[Int] {
+  def `Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`(downloadInfo: DownloadInfo): LabeledMultiClassifiable[Int] = new LabeledMultiClassifiable[Int] {
     override def multiDataset(): LabeledMultiDataset[Int] =
-      LabeledMultiDataset(docs = getLabeledJapanTimesArticles, classNum = pageToUrls.length)
+      LabeledMultiDataset(docs = getLabeledJapanTimesArticlesByPath(downloadInfo), classNum = pageToUrls.length)
   }
 
 

@@ -191,10 +191,23 @@ object Main {
 
 
 
+    // Download Information
+    val `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo` = DownloadInfo(
+      storedPath = "./data/japan-times-multi-articles.json",
+      pageLimit = 30,
+      pageToUrls = Seq(
+        TimesGetterJsoup.economyPage _,
+        TimesGetterJsoup.politicPage _,
+        TimesGetterJsoup.techPage _,
+        TimesGetterJsoup.figurePage _,
+        TimesGetterJsoup.sumoPage _
+      )
+    )
+
     if(false) {
       // [CAUTION] This makes a error
       NakSVMExecutor.executeSVM(
-        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8
       )
     }
@@ -213,7 +226,7 @@ object Main {
     if(false) {
       // [CAUTION] This makes a error
       NakSVMExecutor.executeTFIDFAndWord2Vec(
-        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         "./gensim-text-for-word2vec/jp_times_with_title.txt"
       )
@@ -222,7 +235,7 @@ object Main {
 
     if(false) {
       LogisticRegressionExecutor.executeTFIDFAndWord2Vec(
-        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         "./gensim-text-for-word2vec/jp_times_with_title.txt",
         word2VecDem = 100,
@@ -232,7 +245,7 @@ object Main {
 
     if(false) {
       LogisticRegressionExecutor.executeTFIDF(
-        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         "./gensim-text-for-word2vec/jp_times_with_title.txt",
         crossValidationTimes = 10
@@ -240,12 +253,12 @@ object Main {
     }
 
 
-    if(false) {
+    if(true) {
       // [Setting]
       // TFIDF Normalization   : Enable
       // Word2vec Normalization: Enable
       LogisticRegressionExecutor.`execute (Normalized TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         "./gensim-text-for-word2vec/jp_times_with_title.txt",
         word2VecDem = 100,
@@ -269,7 +282,7 @@ object Main {
       // TFIDF Normalization   : Disable
       // Word2vec Normalization: Enable
       LogisticRegressionExecutor.`execute (Normalized TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         "./gensim-text-for-word2vec/jp_times_with_title.txt",
         word2VecDem = 100,
@@ -287,31 +300,34 @@ object Main {
     }
 
 
+
+
+    if(false) {
+      // TFIDF Normalization   : Enable
+      // Word2vec Normalization: Disable
+      LogisticRegressionExecutor.`execute (Normalized TFIDF) ++ (Normalized Word2Vec)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        "./gensim-text-for-word2vec/jp_times_with_title.txt",
+        word2VecDem = 100,
+        crossValidationTimes = 10,
+        enableNormalizationForTFIDF   = true,
+        enableNormaliztionForWord2vec = false
+      )
+
+      // [Result] (it can be changed because of random)
+      //    Average Accuracy: 0.9675213675213674
+      //    Max Accuracy    : 0.9743589743589743
+      //    Min Accuracy    : 0.9529914529914529
+      //    -----------------------------------
+      //    SVM abx max     : 166.9562181907852
+      //    word2vec abs max: 93.59978816879448
+
+    }
+
+
   }
 
-
-  if(true) {
-    // TFIDF Normalization   : Enable
-    // Word2vec Normalization: Disable
-    LogisticRegressionExecutor.`execute (Normalized TFIDF) ++ (Normalized Word2Vec)`(
-      JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`,
-      trainSetRate = 0.8,
-      "./gensim-text-for-word2vec/jp_times_with_title.txt",
-      word2VecDem = 100,
-      crossValidationTimes = 10,
-      enableNormalizationForTFIDF   = true,
-      enableNormaliztionForWord2vec = false
-    )
-
-    // [Result] (it can be changed because of random)
-//    Average Accuracy: 0.9675213675213674
-//    Max Accuracy    : 0.9743589743589743
-//    Min Accuracy    : 0.9529914529914529
-//    -----------------------------------
-//    SVM abx max     : 166.9562181907852
-//    word2vec abs max: 93.59978816879448
-
-  }
 
 
 }

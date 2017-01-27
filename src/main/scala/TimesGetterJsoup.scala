@@ -18,6 +18,10 @@ object TimesGetterJsoup {
   def economyPage(pageNum: Int)   = s"http://www.japantimes.co.jp/news/economy-business/page/${pageNum}/"
   // page creator for tech
   def techPage(pageNum: Int)   = s"http://www.japantimes.co.jp/news/business/tech/page/${pageNum}/"
+  // page creator for crime-legal
+  def crimeLegalPage(pageNum: Int) = s"http://www.japantimes.co.jp/news/national/crime-legal/page/${pageNum}/"
+  // page creator for editorials
+  def editorialsPage(pageNum: Int) = s"http://www.japantimes.co.jp/opinion/editorials//editorials/page/${pageNum}/"
 
 
   /**
@@ -106,7 +110,7 @@ object TimesGetterJsoup {
               aTag = artTag.getElementsByTag("a").first()
               url = aTag.attr("href")
         } yield url
-        println(s"Got article urls from ${pageUrl}")
+        println(s"Got ${urls.length} article urls from ${pageUrl}")
         urls
       }
 
