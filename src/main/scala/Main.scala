@@ -426,7 +426,7 @@ object Main {
     }
 
 
-    if(true) {
+    if(false) {
       // [Use Spark's TFIDF]
       //
       // TFIDF Normalization   : Enable
@@ -442,6 +442,92 @@ object Main {
 
     }
 
+
+    if(false) {
+      // [Use Spark's TFIDF]
+      //
+      // TFIDF Normalization   : Disable
+      // Word2vec Normalization: Disable
+      LogisticRegressionExecutor.`execute (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only title, test-set: only title)`(downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        word2VecDem = 100,
+        crossValidationTimes = 10,
+        enableNormalizationForTFIDF   = false,
+        enableNormaliztionForWord2vec = false
+      )
+
+//      Average Accuracy: 0.8312625250501002
+//      Max Accuracy    : 0.8517034068136272
+//      Min Accuracy    : 0.811623246492986
+//      -----------------------------------
+//      TFIDF abx max     : 14.257793655251348
+//      word2vec abs max: 1.1163835804909468
+
+    }
+
+    if(false) {
+      // [Use Spark's TFIDF]
+      //
+      // TFIDF Normalization   : Disable
+      // Word2vec Normalization: Enable
+      LogisticRegressionExecutor.`execute (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only title, test-set: only title)`(downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        word2VecDem = 100,
+        crossValidationTimes = 10,
+        enableNormalizationForTFIDF   = false,
+        enableNormaliztionForWord2vec = true
+      )
+
+//      Average Accuracy: 0.8384769539078156
+//      Max Accuracy    : 0.8496993987975952
+//      Min Accuracy    : 0.8256513026052105
+//      -----------------------------------
+//      TFIDF abx max     : 14.257793655251348
+//      word2vec abs max: 1.1163835804909468
+
+    }
+
+    if(true) {
+      // [Use Spark's TFIDF]
+      //
+      // TFIDF Normalization   : Enable
+      // Word2vec Normalization: Disable
+      LogisticRegressionExecutor.`execute (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only title, test-set: only title)`(downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        word2VecDem = 100,
+        crossValidationTimes = 10,
+        enableNormalizationForTFIDF   = true,
+        enableNormaliztionForWord2vec = false
+      )
+
+//      Average Accuracy: 0.8314629258517032
+//      Max Accuracy    : 0.8677354709418837
+//      Min Accuracy    : 0.8036072144288577
+//      -----------------------------------
+//      TFIDF abx max     : 14.257793655251348
+//      word2vec abs max: 1.1163835804909468
+
+    }
+
+
+    if(false) {
+      // [Use Spark's TFIDF]
+      //
+      // TFIDF Normalization   : Disable
+      // Word2vec Normalization: Disable
+      LogisticRegressionExecutor.`execute (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only title, test-set: only title)`(downloadInfo = `Page-Limit: 184, Articles: Economy & Politics & Crime-Legal & Editorials & Corporate`),
+        trainSetRate = 0.8,
+        word2VecDem = 100,
+        crossValidationTimes = 10,
+        enableNormalizationForTFIDF   = false,
+        enableNormaliztionForWord2vec = false
+      )
+
+    }
 
 
   }

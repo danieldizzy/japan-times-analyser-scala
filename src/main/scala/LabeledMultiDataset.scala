@@ -6,4 +6,4 @@
   *
   * @param docs
   */
-case class LabeledMultiDataset[L](docs: Seq[LabeledJapanTimesArticle[L]], classNum: Int)
+case class LabeledMultiDataset[L](docs: Seq[LabeledDocument[L]], classNum: Int)

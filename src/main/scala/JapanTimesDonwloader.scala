@@ -218,7 +218,12 @@ object JapanTimesDonwloader{
 
   def `Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`(downloadInfo: DownloadInfo): LabeledMultiClassifiable[Int] = new LabeledMultiClassifiable[Int] {
     override def multiDataset(): LabeledMultiDataset[Int] =
-      LabeledMultiDataset(docs = getLabeledJapanTimesArticlesByPath(downloadInfo), classNum = pageToUrls.length)
+      LabeledMultiDataset(docs = getLabeledJapanTimesArticlesByPath(downloadInfo).map{art => LabeledDocument(art.label, art.entity)}, classNum = pageToUrls.length)
+  }
+
+  def `Labeled Multi-Classfiable of (train-set: only title, test-set: only title)`(downloadInfo: DownloadInfo): LabeledMultiClassifiable[Int] = new LabeledMultiClassifiable[Int] {
+    override def multiDataset(): LabeledMultiDataset[Int] =
+      LabeledMultiDataset(docs = getLabeledJapanTimesArticlesByPath(downloadInfo).map{art => LabeledDocument(art.label, art.title)}, classNum = pageToUrls.length)
   }
 
 
