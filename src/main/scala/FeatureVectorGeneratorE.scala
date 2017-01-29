@@ -1,3 +1,6 @@
+import org.apache.spark.SparkContext
+import org.apache.spark.mllib.feature.{HashingTF, IDF}
+import org.apache.spark.rdd.RDD
 import org.bson.types.BasicBSONList
 
 import scala.util.{Failure, Success}
@@ -42,10 +45,44 @@ object FeatureVectorGeneratorE {
       }.toMap
     }
 
+    // return a Feature Vectors and all words containing in all documents
+    (featureVectors, allWordsSet)
+  }
+
+  /**
+    * Generate a map (Document -> IDIF) with SparkContext
+    *
+    * @param sparkContext
+    * @param documents
+    * @return
+    */
+  def generateTFIDFVectorsAndWordsWithSparkContext(sparkContext: SparkContext, documents: Seq[Document]): (Map[Document, org.apache.spark.mllib.linalg.Vector], Set[Word]) = {
+
+    val docRdd: RDD[Seq[String]] = sparkContext.makeRDD(documents).map(_.entity.split("\\s").toSeq)
+
+    // All words in all documents
+    val allWordsSet: Set[Word] = documents.map(_.wordsSet.toSet).reduce((a, b) => a ++ b)
+
+    val hashingTF = new HashingTF(numFeatures = allWordsSet.size)
+    val tf = hashingTF.transform(docRdd)
+
+    tf.cache()
+    val idf = new IDF().fit(tf)
+    val tfidf = idf.transform(tf)
+
+    println(s"docs.size: ${documents.size}")
+    println(s"tfidf.size ${tfidf.collect().length}")
+
+    println(s"dem: ${tfidf.collect().head.size}")
+    println(s"head: ${tfidf.collect().head.toSparse}")
+
+    val featureVectors = documents.zip(tfidf.collect()).toMap
+
 
     // return a Feature Vectors and all words containing in all documents
     (featureVectors, allWordsSet)
   }
+
 
   /**
     * Generate a map (Document -> IDIF++word2vec)

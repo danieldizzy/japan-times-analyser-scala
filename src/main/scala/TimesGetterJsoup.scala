@@ -22,6 +22,8 @@ object TimesGetterJsoup {
   def crimeLegalPage(pageNum: Int) = s"http://www.japantimes.co.jp/news/national/crime-legal/page/${pageNum}/"
   // page creator for editorials
   def editorialsPage(pageNum: Int) = s"http://www.japantimes.co.jp/opinion/editorials//editorials/page/${pageNum}/"
+  // page creator for corporate
+  def corporatePage(pageNum: Int) = s"http://www.japantimes.co.jp/news/corporate-business/page/${pageNum}/"
 
 
   /**
@@ -96,21 +98,32 @@ object TimesGetterJsoup {
     val futures: Seq[Future[Seq[String]]] = for(pageNum <- 1 to pageLimit)
       yield Future {
         val pageUrl = pageToUrl(pageNum)
+//        println(s"Getting article urls from ${pageUrl}")
         val document: org.jsoup.nodes.Document = {
           var tryDoc: Try[org.jsoup.nodes.Document] = null
+          var tryNum: Int = 0
           while({
             tryDoc = Try(Jsoup.connect(pageUrl).timeout(0).get())
             tryDoc}.isFailure
-          ) {}
+          ) {
+//            tryNum += 1
+//            println(s"Try(${tryNum}): ${pageUrl}")
+            Thread.sleep(1000)
+          }
           tryDoc.get
         }
         val artTags = document.getElementsByTag("article")
         val urls = for {
             artTag <- artTags.toStream
-              aTag = artTag.getElementsByTag("a").first()
-              url = aTag.attr("href")
-        } yield url
+        } yield {
+          val aTag = artTag.select("h1 > a").first()
+          val url = aTag.attr("href")
+          url
+        }
         println(s"Got ${urls.length} article urls from ${pageUrl}")
+//        for(url <- urls){
+//          println(s"    ${url}")
+//        }
         urls
       }
 

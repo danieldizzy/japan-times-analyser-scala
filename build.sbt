@@ -6,6 +6,9 @@ scalaVersion := "2.10.4"
 
 val seleniumVersion = "2.53.1"
 
+javaOptions in run += "-Xms16384m"
+javaOptions in run += "-Xmx16384m"
+
 libraryDependencies ++= Seq(
   "org.seleniumhq.selenium" % "selenium-java" % seleniumVersion,
   "org.seleniumhq.selenium" % "selenium-firefox-driver" % seleniumVersion,
