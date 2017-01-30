@@ -529,6 +529,27 @@ object Main {
 
     }
 
+    if(false) {
+      // [Use Spark's TFIDF]
+      //
+      // TFIDF Normalization   : Disable
+      // Word2vec Normalization: Disable
+      LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        word2VecDem = 100,
+        enableNormalizationForTFIDF   = false,
+        enableNormaliztionForWord2vec = false
+      )
+
+      //      Accuracy    : 0.7350427350427351
+      //      -----------------------------------
+      //      TFIDF abx max     : 245.3739173933605
+      //      word2vec abs max: 88.96915444626939
+
+
+    }
+
 
     if(false) {
       // [Use Spark's TFIDF]
@@ -543,11 +564,53 @@ object Main {
         enableNormaliztionForWord2vec = false
       )
 
-//      Accuracy    : 1.0
+//      Accuracy    : 0.7194388777555111
 //      -----------------------------------
-//      TFIDF abx max     : 283.17298447089206
-//      word2vec abs max: 133.03369094571826
-      /// 1.0 !!!!!!!!
+//      TFIDF abx max     : 249.51138896689858
+//      word2vec abs max: 109.86472121835686
+
+    }
+
+
+
+    if(false) {
+      // [Use Spark's TFIDF]
+      //
+      // TFIDF Normalization   : Disable
+      // Word2vec Normalization: Enable
+      LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        word2VecDem = 100,
+        enableNormalizationForTFIDF   = false,
+        enableNormaliztionForWord2vec = true
+      )
+
+//      Accuracy    : 0.7454909819639278
+//      -----------------------------------
+//      TFIDF abx max     : 295.8309956587704
+//      word2vec abs max: 133.15017612822703
+
+    }
+
+
+    if(false) {
+      // [Use Spark's TFIDF]
+      //
+      // TFIDF Normalization   : Enable
+      // Word2vec Normalization: Disable
+      LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        word2VecDem = 100,
+        enableNormalizationForTFIDF   = true,
+        enableNormaliztionForWord2vec = false
+      )
+
+//      Accuracy    : 0.7595190380761523
+//      -----------------------------------
+//      TFIDF abx max     : 264.9340279291955
+//      word2vec abs max: 85.03183344641002
 
     }
 
@@ -555,23 +618,24 @@ object Main {
     if(true) {
       // [Use Spark's TFIDF]
       //
-      // TFIDF Normalization   : Disable
-      // Word2vec Normalization: Disable
+      // TFIDF Normalization   : Enable
+      // Word2vec Normalization: Enable
       LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
-        enableNormalizationForTFIDF   = false,
-        enableNormaliztionForWord2vec = false
+        enableNormalizationForTFIDF   = true,
+        enableNormaliztionForWord2vec = true
       )
 
-//      Accuracy    : 0.7350427350427351
+//      Accuracy    : 0.751503006012024
 //      -----------------------------------
-//      TFIDF abx max     : 245.3739173933605
-//      word2vec abs max: 88.96915444626939
-
-
+//      TFIDF abx max     : 273.3546682130668
+//      word2vec abs max: 58.38296064088354
     }
+
+
+
 
 
   }
