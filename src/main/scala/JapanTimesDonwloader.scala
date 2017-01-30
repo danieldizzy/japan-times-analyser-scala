@@ -240,6 +240,19 @@ object JapanTimesDonwloader{
   }
 
 
+  def `Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: title)`(titleTimes: Int, downloadInfo: DownloadInfo): LabeledTrainTestMultiClassifiable[Int] = new LabeledTrainTestMultiClassifiable[Int] {
+
+    override def trainTestMultiDataset(): LabeledTrainTestMultiDataset[Int] =
+      LabeledTrainTestMultiDataset(
+        trainTestDocs =
+          getLabeledJapanTimesArticlesByPath(downloadInfo).map{
+            art => LabeledTrainTestDocument(art.label, EngDocument(art.entity + " " + ((art.title+" ")*titleTimes)), EngDocument(art.title))
+          },
+        classNum = downloadInfo.pageToUrls.length
+      )
+  }
+
+
 
   //  override def multiDataset(): MultiDataset = {
 //    val docsSeq: Seq[Seq[EngDocument]] =

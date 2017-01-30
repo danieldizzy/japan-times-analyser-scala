@@ -615,7 +615,7 @@ object Main {
     }
 
 
-    if(true) {
+    if(false) {
       // [Use Spark's TFIDF]
       //
       // TFIDF Normalization   : Enable
@@ -635,6 +635,52 @@ object Main {
     }
 
 
+    if(false) {
+      // [Use Spark's TFIDF]
+      //
+      // TFIDF Normalization   : Enable
+      LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        enableNormalizationForTFIDF   = true
+      )
+//      Accuracy    : 0.6973947895791583
+//      -----------------------------------
+//      TFIDF abx max     : 295.8309956587704
+    }
+
+    if(true) {
+      // [Use Spark's TFIDF]
+      //
+      // TFIDF Normalization   : Disable
+      LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        enableNormalizationForTFIDF   = false
+      )
+
+//      Accuracy    : 0.7535070140280561
+//      -----------------------------------
+//      TFIDF abx max     : 242.04354190263032
+    }
+
+
+
+    if(false) {
+      // [Use Spark's TFIDF]
+      //
+      // TFIDF Normalization   : Enable
+      LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: title)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        enableNormalizationForTFIDF = true
+      )
+
+//      Accuracy    : 0.7294589178356713
+//      -----------------------------------
+//      TFIDF abx max     : 260.35913929858793
+
+    }
 
 
 
