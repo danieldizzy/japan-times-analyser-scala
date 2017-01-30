@@ -227,7 +227,7 @@ object JapanTimesDonwloader{
   }
 
 
-  def `Labeled Multi-Classfiable of (train-set: many titles, test-set: only title)`(titleTimes: Int, downloadInfo: DownloadInfo): LabeledTrainTestMultiClassifiable[Int] = new LabeledTrainTestMultiClassifiable[Int] {
+  def `Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: many titles)`(titleTimes: Int, downloadInfo: DownloadInfo): LabeledTrainTestMultiClassifiable[Int] = new LabeledTrainTestMultiClassifiable[Int] {
 
     override def trainTestMultiDataset(): LabeledTrainTestMultiDataset[Int] =
       LabeledTrainTestMultiDataset(

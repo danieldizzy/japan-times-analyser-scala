@@ -536,7 +536,7 @@ object Main {
       // TFIDF Normalization   : Disable
       // Word2vec Normalization: Disable
       LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: many titles, test-set: only title)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         enableNormalizationForTFIDF   = false,
@@ -558,7 +558,7 @@ object Main {
       // TFIDF Normalization   : Disable
       // Word2vec Normalization: Disable
       LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: many titles, test-set: only title)`(titleTimes = 20, downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         enableNormalizationForTFIDF   = false,
@@ -566,6 +566,10 @@ object Main {
       )
 
 
+//      Accuracy    : 1.0
+//      -----------------------------------
+//      TFIDF abx max     : 239.17200434912255
+//      word2vec abs max: 99.31688550766557
       /// 1.0 !!!!!!!!
 
     }
