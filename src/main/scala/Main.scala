@@ -489,7 +489,7 @@ object Main {
 
     }
 
-    if(true) {
+    if(false) {
       // [Use Spark's TFIDF]
       //
       // TFIDF Normalization   : Enable
@@ -526,6 +526,47 @@ object Main {
         enableNormalizationForTFIDF   = false,
         enableNormaliztionForWord2vec = false
       )
+
+    }
+
+
+    if(false) {
+      // [Use Spark's TFIDF]
+      //
+      // TFIDF Normalization   : Disable
+      // Word2vec Normalization: Disable
+      LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: many titles, test-set: only title)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        word2VecDem = 100,
+        enableNormalizationForTFIDF   = false,
+        enableNormaliztionForWord2vec = false
+      )
+
+//      Accuracy    : 1.0
+//      -----------------------------------
+//      TFIDF abx max     : 283.17298447089206
+//      word2vec abs max: 133.03369094571826
+      /// 1.0 !!!!!!!!
+
+    }
+
+
+    if(true) {
+      // [Use Spark's TFIDF]
+      //
+      // TFIDF Normalization   : Disable
+      // Word2vec Normalization: Disable
+      LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: many titles, test-set: only title)`(titleTimes = 20, downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        word2VecDem = 100,
+        enableNormalizationForTFIDF   = false,
+        enableNormaliztionForWord2vec = false
+      )
+
+
+      /// 1.0 !!!!!!!!
 
     }
 
