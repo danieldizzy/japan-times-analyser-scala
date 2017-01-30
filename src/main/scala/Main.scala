@@ -565,12 +565,11 @@ object Main {
         enableNormaliztionForWord2vec = false
       )
 
-
-//      Accuracy    : 1.0
+//      Accuracy    : 0.7350427350427351
 //      -----------------------------------
-//      TFIDF abx max     : 239.17200434912255
-//      word2vec abs max: 99.31688550766557
-      /// 1.0 !!!!!!!!
+//      TFIDF abx max     : 245.3739173933605
+//      word2vec abs max: 88.96915444626939
+
 
     }
 

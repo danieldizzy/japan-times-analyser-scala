@@ -690,7 +690,7 @@ object LogisticRegressionExecutor {
 
 
     val trainVecs: Seq[LabeledPoint] = getLabeledPoints(trainDocs)
-    val testVecs: Seq[LabeledPoint]  = getLabeledPoints(trainDocs)
+    val testVecs: Seq[LabeledPoint]  = getLabeledPoints(testDocs)
 
 
     // Print the number of total and train and test
