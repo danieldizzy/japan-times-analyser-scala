@@ -1,3 +1,5 @@
 .idea
 target
 gensim-text
+/data/
+/gensim-text-for-word2vec/
