@@ -1,8 +1,9 @@
-package io.github.nwtgck.japan_times_feature_vector
+package io.github.nwtgck.japan_times_feature_vector.text_file_generator
 
 import java.io.{File, PrintWriter}
 
 import io.github.nwtgck.japan_times_feature_vector.datatype.JapanTimesArticle
+import io.github.nwtgck.japan_times_feature_vector.downloader.JapanTimesDonwloader
 
 /**
   * Created by Ryo on 2017/01/15.

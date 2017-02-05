@@ -1,8 +1,9 @@
-package io.github.nwtgck.japan_times_feature_vector
+package io.github.nwtgck.japan_times_feature_vector.text_file_generator
 
 import java.io.{File, PrintWriter}
 
 import io.github.nwtgck.japan_times_feature_vector.datatype._
+import io.github.nwtgck.japan_times_feature_vector.vector_generator.FeatureVectorGeneratorE
 
 /**
   * A training-set file and test-set file generator

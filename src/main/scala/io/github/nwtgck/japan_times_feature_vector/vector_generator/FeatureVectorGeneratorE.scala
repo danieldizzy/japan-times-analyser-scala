@@ -1,6 +1,7 @@
-package io.github.nwtgck.japan_times_feature_vector
+package io.github.nwtgck.japan_times_feature_vector.vector_generator
 
 import io.github.nwtgck.japan_times_feature_vector.datatype.{Document, Word}
+import io.github.nwtgck.japan_times_feature_vector.pycall.PythonCall
 import org.apache.spark.SparkContext
 import org.apache.spark.mllib.feature.{HashingTF, IDF}
 import org.apache.spark.rdd.RDD

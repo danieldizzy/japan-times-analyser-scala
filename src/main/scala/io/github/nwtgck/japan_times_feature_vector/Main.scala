@@ -1,6 +1,11 @@
 package io.github.nwtgck.japan_times_feature_vector
 
+import io.github.nwtgck.japan_times_feature_vector.classifier.{LogisticRegressionExecutor, NakSVMExecutor}
 import io.github.nwtgck.japan_times_feature_vector.datatype.{DownloadInfo, EngDocument, JapanTimesArticle, MultiDataset}
+import io.github.nwtgck.japan_times_feature_vector.downloader.{FigureAndSumoDataset, JapanTimesDataset, JapanTimesDonwloader, TimesGetterJsoup}
+import io.github.nwtgck.japan_times_feature_vector.pycall.PythonCall
+import io.github.nwtgck.japan_times_feature_vector.text_file_generator.{TextGeneratorForGensim, TrainAndTestFilesGenerator}
+import io.github.nwtgck.japan_times_feature_vector.vector_generator.{FeatureVectorGeneratorE, Word2VecGenerator}
 import org.apache.spark.{SparkConf, SparkContext}
 import org.bson.types.BasicBSONList
 

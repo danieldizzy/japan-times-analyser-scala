@@ -1,4 +1,4 @@
-package io.github.nwtgck.japan_times_feature_vector
+package io.github.nwtgck.japan_times_feature_vector.vector_generator
 
 import java.io.File
 

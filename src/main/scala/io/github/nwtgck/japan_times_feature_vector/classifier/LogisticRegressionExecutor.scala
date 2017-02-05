@@ -1,8 +1,9 @@
-package io.github.nwtgck.japan_times_feature_vector
+package io.github.nwtgck.japan_times_feature_vector.classifier
 
 import breeze.linalg.DenseVector
 import breeze.stats.distributions.Rand
 import io.github.nwtgck.japan_times_feature_vector.datatype._
+import io.github.nwtgck.japan_times_feature_vector.vector_generator.{FeatureVectorGeneratorE, Word2VecGenerator}
 import org.apache.spark.mllib.classification.LogisticRegressionWithLBFGS
 import org.apache.spark.mllib.evaluation.MulticlassMetrics
 import org.apache.spark.mllib.regression.LabeledPoint

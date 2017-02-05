@@ -1,4 +1,4 @@
-package io.github.nwtgck.japan_times_feature_vector
+package io.github.nwtgck.japan_times_feature_vector.downloader
 
 import io.github.nwtgck.japan_times_feature_vector.datatype.JapanTimesArticle
 import org.jsoup.Jsoup
