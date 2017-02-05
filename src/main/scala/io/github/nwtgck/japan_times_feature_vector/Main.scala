@@ -1,6 +1,6 @@
 package io.github.nwtgck.japan_times_feature_vector
 
-import io.github.nwtgck.japan_times_feature_vector.classifier.{LogisticRegressionExecutor, NakSVMExecutor}
+import io.github.nwtgck.japan_times_feature_vector.classifier.LogisticRegressionExecutor
 import io.github.nwtgck.japan_times_feature_vector.datatype.{DownloadInfo, EngDocument, JapanTimesArticle, MultiDataset}
 import io.github.nwtgck.japan_times_feature_vector.downloader.{FigureAndSumoDataset, JapanTimesDataset, JapanTimesDonwloader, TimesGetterJsoup}
 import io.github.nwtgck.japan_times_feature_vector.pycall.PythonCall
@@ -237,15 +237,6 @@ object Main {
     )
 
 
-    if(false) {
-      // [CAUTION] This makes a error
-      NakSVMExecutor.executeSVM(
-        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
-        trainSetRate = 0.8
-      )
-    }
-
-
     if(false){
       // Make a SparkContext
       val sparkContext = new SparkContext(new SparkConf().setAppName("JPTIMES").setMaster("local[*]"))
@@ -253,16 +244,6 @@ object Main {
         .calcOrGetCacheModel(sparkContext = sparkContext, vectorSize = 100, jptimesFilePath = "./gensim-text-for-word2vec/jp_times_with_title.txt")
 
       println(model.transform("Trump"))
-    }
-
-
-    if(false) {
-      // [CAUTION] This makes a error
-      NakSVMExecutor.executeTFIDFAndWord2Vec(
-        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
-        trainSetRate = 0.8,
-        "./gensim-text-for-word2vec/jp_times_with_title.txt"
-      )
     }
 
 
