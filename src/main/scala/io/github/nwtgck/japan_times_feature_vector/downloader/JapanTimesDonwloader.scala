@@ -177,23 +177,18 @@ object JapanTimesDonwloader{
     )
   }
 
-  lazy val onlyTitleMultiClassifiable: MultiClassifiable = new MultiClassifiable {
-    override def multiDataset(): MultiDataset = {
+  lazy val onlyTitleMultiClassifiable: MultiDataset = {
       val artsSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
       MultiDataset(docsSeq = artsSeq.map{arts => arts.map(art => EngDocument(art.title))})
     }
-  }
 
-  lazy val onlyArticleMultiClassifiable: MultiClassifiable = new MultiClassifiable {
-    override def multiDataset(): MultiDataset = {
+  lazy val onlyArticleMultiClassifiable: MultiDataset = {
       val artsSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
       MultiDataset(docsSeq = artsSeq.map{arts => arts.map(art => EngDocument(art.entity))})
     }
-  }
 
-  lazy val `Multi-Classfiable of (train-set: title + article, test-set: only title)`: TrainTestMultiClassifiable = new TrainTestMultiClassifiable {
 
-    override def trainTestMultiDataset(): TrainTestMultiDataset = {
+  lazy val `Multi-Classfiable of (train-set: title + article, test-set: only title)`: TrainTestMultiDataset = {
       val artsSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
       TrainTestMultiDataset(artsSeq.map(arts => arts.map(art =>
         TrainTestDocument(
@@ -202,12 +197,10 @@ object JapanTimesDonwloader{
         )
       )))
     }
-  }
 
 
-  def `Multi-Classfiable of (train-set: many titles + article, test-set: only title)`(titleTimes: Int): TrainTestMultiClassifiable = new TrainTestMultiClassifiable {
 
-    override def trainTestMultiDataset(): TrainTestMultiDataset = {
+  def `Multi-Classfiable of (train-set: many titles + article, test-set: only title)`(titleTimes: Int): TrainTestMultiDataset = {
       val artsSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
       TrainTestMultiDataset(artsSeq.map(arts => arts.map(art =>
         TrainTestDocument(
@@ -216,22 +209,18 @@ object JapanTimesDonwloader{
         )
       )))
     }
-  }
 
-  def `Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`(downloadInfo: DownloadInfo): LabeledMultiClassifiable[Int] = new LabeledMultiClassifiable[Int] {
-    override def multiDataset(): LabeledMultiDataset[Int] =
+
+  def `Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`(downloadInfo: DownloadInfo): LabeledMultiDataset[Int] =
       LabeledMultiDataset(docs = getLabeledJapanTimesArticlesByPath(downloadInfo).map{art => LabeledDocument(art.label, art.entity)}, classNum = pageToUrls.length)
-  }
 
-  def `Labeled Multi-Classfiable of (train-set: only title, test-set: only title)`(downloadInfo: DownloadInfo): LabeledMultiClassifiable[Int] = new LabeledMultiClassifiable[Int] {
-    override def multiDataset(): LabeledMultiDataset[Int] =
+
+  def `Labeled Multi-Classfiable of (train-set: only title, test-set: only title)`(downloadInfo: DownloadInfo): LabeledMultiDataset[Int] =
       LabeledMultiDataset(docs = getLabeledJapanTimesArticlesByPath(downloadInfo).map{art => LabeledDocument(art.label, art.title)}, classNum = downloadInfo.pageToUrls.length)
-  }
 
 
-  def `Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: many titles)`(titleTimes: Int, downloadInfo: DownloadInfo): LabeledTrainTestMultiClassifiable[Int] = new LabeledTrainTestMultiClassifiable[Int] {
 
-    override def trainTestMultiDataset(): LabeledTrainTestMultiDataset[Int] =
+  def `Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes: Int, downloadInfo: DownloadInfo): LabeledTrainTestMultiDataset[Int] =
       LabeledTrainTestMultiDataset(
         trainTestDocs =
           getLabeledJapanTimesArticlesByPath(downloadInfo).map{
@@ -239,12 +228,10 @@ object JapanTimesDonwloader{
           },
         classNum = downloadInfo.pageToUrls.length
       )
-  }
 
 
-  def `Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: title)`(titleTimes: Int, downloadInfo: DownloadInfo): LabeledTrainTestMultiClassifiable[Int] = new LabeledTrainTestMultiClassifiable[Int] {
 
-    override def trainTestMultiDataset(): LabeledTrainTestMultiDataset[Int] =
+  def `Labeled Dataset of (train-set: (article + many titles), test-set: title)`(titleTimes: Int, downloadInfo: DownloadInfo): LabeledTrainTestMultiDataset[Int] =
       LabeledTrainTestMultiDataset(
         trainTestDocs =
           getLabeledJapanTimesArticlesByPath(downloadInfo).map{
@@ -252,7 +239,7 @@ object JapanTimesDonwloader{
           },
         classNum = downloadInfo.pageToUrls.length
       )
-  }
+
 
 
 

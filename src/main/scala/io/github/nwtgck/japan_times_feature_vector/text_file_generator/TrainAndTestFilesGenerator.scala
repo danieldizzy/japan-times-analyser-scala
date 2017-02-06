@@ -12,12 +12,12 @@ object TrainAndTestFilesGenerator {
 
   /**
     * Generate a train-set file and a test-set file in SVM light Format
-    * @param binaryClassifiable
+    * @param dataset
     * @param trainFilePath
     * @param testFilePath
     * @param trainSetRate
     */
-  def generateSvmLightFormatFiles(binaryClassifiable: BinaryClassifiable, trainFilePath: String, testFilePath: String, trainSetRate: Double): Unit = {
+  def generateSvmLightFormatFiles(dataset: BinaryDataset, trainFilePath: String, testFilePath: String, trainSetRate: Double): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
@@ -28,7 +28,7 @@ object TrainAndTestFilesGenerator {
     val negLabel    = "-1"
 
     // extract the positive docs and negative docs
-    val BinaryDataset(posDocs, negDocs) = binaryClassifiable.binaryDataset()
+    val BinaryDataset(posDocs, negDocs) = dataset
 
     // number of training sets
     val posTrainSetNumber = (posDocs.length * trainSetRate).toInt
@@ -89,19 +89,19 @@ object TrainAndTestFilesGenerator {
 
   /**
     * Generate a train-set file and a test-set file in SVM light Format
-    * @param multiClassifiable
+    * @param dataset
     * @param trainFilePath
     * @param testFilePath
     * @param trainSetRate
     */
-  def generateMultiSvmLightFormatFiles(multiClassifiable: MultiClassifiable, trainFilePath: String, testFilePath: String, trainSetRate: Double): Unit = {
+  def generateMultiSvmLightFormatFiles(dataset: MultiDataset, trainFilePath: String, testFilePath: String, trainSetRate: Double): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
 
 
     // extract the positive docs and negative docs
-    val MultiDataset(docsSeq) = multiClassifiable.multiDataset()
+    val MultiDataset(docsSeq) = dataset
 
     // numbers of training sets
     val trainSetNumbers = docsSeq.map{docs => (docs.length * trainSetRate).toInt}
@@ -157,19 +157,19 @@ object TrainAndTestFilesGenerator {
 
   /**
     * Generate a train-set file and a test-set file in SVM light Format
-    * @param multiClassifiable
+    * @param dataset
     * @param trainFilePath
     * @param testFilePath
     * @param trainSetRate
     */
-  def generateTrainTestMultiSvmLightFormatFiles(multiClassifiable: TrainTestMultiClassifiable, trainFilePath: String, testFilePath: String, trainSetRate: Double): Unit = {
+  def generateTrainTestMultiSvmLightFormatFiles(dataset: TrainTestMultiDataset, trainFilePath: String, testFilePath: String, trainSetRate: Double): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
 
 
     // extract the positive docs and negative docs
-    val TrainTestMultiDataset(trainTestDocsSeq) = multiClassifiable.trainTestMultiDataset()
+    val TrainTestMultiDataset(trainTestDocsSeq) = dataset
 
     // numbers of training sets
     val trainSetNumbers = trainTestDocsSeq.map{docs => (docs.length * trainSetRate).toInt}
@@ -229,19 +229,19 @@ object TrainAndTestFilesGenerator {
 
   /**
     * Generate a train-set file and a test-set file in SVM light Format with a generator
-    * @param multiClassifiable
+    * @param dataset
     * @param trainFilePath
     * @param testFilePath
     * @param trainSetRate
     */
-  def generateMultiSvmLightFormatFilesWithGenerator(multiClassifiable: MultiClassifiable, trainFilePath: String, testFilePath: String, trainSetRate: Double, generator: (Seq[Document] => (Map[Document, Array[Double]], Set[Word]))): Unit = {
+  def generateMultiSvmLightFormatFilesWithGenerator(dataset: MultiDataset, trainFilePath: String, testFilePath: String, trainSetRate: Double, generator: (Seq[Document] => (Map[Document, Array[Double]], Set[Word]))): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
 
 
     // extract the positive docs and negative docs
-    val MultiDataset(docsSeq) = multiClassifiable.multiDataset()
+    val MultiDataset(docsSeq) = dataset
 
     // numbers of training sets
     val trainSetNumbers = docsSeq.map{docs => (docs.length * trainSetRate).toInt}
@@ -296,19 +296,19 @@ object TrainAndTestFilesGenerator {
 
   /**
     * Generate a train-set file and a test-set file with generator in SVM light Format
-    * @param multiClassifiable
+    * @param dataset
     * @param trainFilePath
     * @param testFilePath
     * @param trainSetRate
     */
-  def generateTrainTestMultiSvmLightFormatFilesWithGenerator(multiClassifiable: TrainTestMultiClassifiable, trainFilePath: String, testFilePath: String, trainSetRate: Double, generator: (Seq[Document] => (Map[Document, Array[Double]], Set[Word]))): Unit = {
+  def generateTrainTestMultiSvmLightFormatFilesWithGenerator(dataset: TrainTestMultiDataset, trainFilePath: String, testFilePath: String, trainSetRate: Double, generator: (Seq[Document] => (Map[Document, Array[Double]], Set[Word]))): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
 
 
     // extract the positive docs and negative docs
-    val TrainTestMultiDataset(trainTestDocsSeq) = multiClassifiable.trainTestMultiDataset()
+    val TrainTestMultiDataset(trainTestDocsSeq) = dataset
 
     // numbers of training sets
     val trainSetNumbers = trainTestDocsSeq.map{docs => (docs.length * trainSetRate).toInt}

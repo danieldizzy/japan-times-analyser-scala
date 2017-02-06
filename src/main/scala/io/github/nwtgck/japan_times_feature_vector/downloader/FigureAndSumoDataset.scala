@@ -2,7 +2,7 @@ package io.github.nwtgck.japan_times_feature_vector.downloader
 
 import java.io.PrintWriter
 
-import io.github.nwtgck.japan_times_feature_vector.datatype.{BinaryClassifiable, BinaryDataset, EngDocument}
+import io.github.nwtgck.japan_times_feature_vector.datatype.{BinaryDataset, EngDocument}
 
 import scala.io.Source
 import scala.pickling.Defaults._
@@ -11,7 +11,7 @@ import scala.pickling.json._
 /**
   * Created by Ryo on 2016/11/25.
   */
-object FigureAndSumoDataset extends BinaryClassifiable{
+object FigureAndSumoDataset{
 
   val japanTimesJsonFilePath = "./data/japan-times-docs.json"
 
@@ -53,7 +53,7 @@ object FigureAndSumoDataset extends BinaryClassifiable{
     }
   }
 
-  override def binaryDataset(): BinaryDataset = {
+  def binaryDataset(): BinaryDataset = {
     val (figureDocs, sumoDocs) = offlineJTDocsPair
     BinaryDataset(figureDocs, sumoDocs)
   }

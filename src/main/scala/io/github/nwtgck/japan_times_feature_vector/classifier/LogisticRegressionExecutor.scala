@@ -16,10 +16,10 @@ object LogisticRegressionExecutor {
   /**
     * Execute only TFIDF by Logistic Regression
     *
-    * @param multiClassifiable
+    * @param dataset
     * @param trainSetRate
     */
-  def executeTFIDF(multiClassifiable: LabeledMultiClassifiable[Int], trainSetRate: Double, jptimesFilePath: String, crossValidationTimes: Int): Unit = {
+  def executeTFIDF(dataset: LabeledMultiDataset[Int], trainSetRate: Double, jptimesFilePath: String, crossValidationTimes: Int): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
@@ -28,7 +28,7 @@ object LogisticRegressionExecutor {
 
 
     // extract the positive docs and negative docs
-    val LabeledMultiDataset(docs, classNum) = multiClassifiable.multiDataset()
+    val LabeledMultiDataset(docs, classNum) = dataset
 
 
     // Get the feature vectors and all words containing all documents
@@ -95,10 +95,10 @@ object LogisticRegressionExecutor {
   /**
     * Execute TFIDF ++ Word2Vec by Logistic Regression
     *
-    * @param multiClassifiable
+    * @param dataset
     * @param trainSetRate
     */
-  def executeTFIDFAndWord2Vec(multiClassifiable: LabeledMultiClassifiable[Int], trainSetRate: Double, jptimesFilePath: String, word2VecDem: Int, crossValidationTimes: Int): Unit = {
+  def executeTFIDFAndWord2Vec(dataset: LabeledMultiDataset[Int], trainSetRate: Double, jptimesFilePath: String, word2VecDem: Int, crossValidationTimes: Int): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
@@ -107,7 +107,7 @@ object LogisticRegressionExecutor {
 
 
     // extract the positive docs and negative docs
-    val LabeledMultiDataset(docs, classNum) = multiClassifiable.multiDataset()
+    val LabeledMultiDataset(docs, classNum) = dataset
 
 
     // Get the feature vectors and all words containing all documents
@@ -196,10 +196,10 @@ object LogisticRegressionExecutor {
   /**
     * Execute (Normalized TFIDF) ++ (Normalized Word2Vec) by Logistic Regression
     *
-    * @param multiClassifiable
+    * @param dataset
     * @param trainSetRate
     */
-  def `execute (Normalized TFIDF) ++ (Normalized Word2Vec)`(multiClassifiable: LabeledMultiClassifiable[Int], trainSetRate: Double, word2VecDem: Int, crossValidationTimes: Int, enableNormalizationForTFIDF: Boolean, enableNormaliztionForWord2vec: Boolean): Unit = {
+  def `execute (Normalized TFIDF) ++ (Normalized Word2Vec)`(dataset: LabeledMultiDataset[Int], trainSetRate: Double, word2VecDem: Int, crossValidationTimes: Int, enableNormalizationForTFIDF: Boolean, enableNormaliztionForWord2vec: Boolean): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
@@ -208,7 +208,7 @@ object LogisticRegressionExecutor {
 
 
     // extract the positive docs and negative docs
-    val LabeledMultiDataset(docs, classNum) = multiClassifiable.multiDataset()
+    val LabeledMultiDataset(docs, classNum) = dataset
 
 
 
@@ -341,10 +341,10 @@ object LogisticRegressionExecutor {
   /**
     * Execute (Normalized TFIDF) ++ (Normalized Word2Vec) by Logistic Regression
     *
-    * @param multiClassifiable
+    * @param dataset
     * @param trainSetRate
     */
-  def `execute train-test (Normalized TFIDF) ++ (Normalized Word2Vec)`(multiClassifiable: LabeledTrainTestMultiClassifiable[Int], trainSetRate: Double, word2VecDem: Int, word2VecNumIterations: Int, enableNormalizationForTFIDF: Boolean, enableNormaliztionForWord2vec: Boolean): Unit = {
+  def `execute train-test (Normalized TFIDF) ++ (Normalized Word2Vec)`(dataset: LabeledTrainTestMultiDataset[Int], trainSetRate: Double, word2VecDem: Int, word2VecNumIterations: Int, enableNormalizationForTFIDF: Boolean, enableNormaliztionForWord2vec: Boolean): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
@@ -353,7 +353,7 @@ object LogisticRegressionExecutor {
 
 
     // extract the positive docs and negative docs
-    val LabeledTrainTestMultiDataset(docs, classNum) = multiClassifiable.trainTestMultiDataset()
+    val LabeledTrainTestMultiDataset(docs, classNum) = dataset
 
 
     // Make a SparkContext
@@ -493,10 +493,10 @@ object LogisticRegressionExecutor {
   /**
     * Execute Spark's Normalized TFIDF) by Logistic Regression
     *
-    * @param multiClassifiable
+    * @param dataset
     * @param trainSetRate
     */
-  def `execute (Normalized Spark's TFIDF)`(multiClassifiable: LabeledMultiClassifiable[Int], trainSetRate: Double, crossValidationTimes: Int): Unit = {
+  def `execute (Normalized Spark's TFIDF)`(dataset: LabeledMultiDataset[Int], trainSetRate: Double, crossValidationTimes: Int): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
@@ -505,7 +505,7 @@ object LogisticRegressionExecutor {
 
 
     // extract the positive docs and negative docs
-    val LabeledMultiDataset(docs, classNum) = multiClassifiable.multiDataset()
+    val LabeledMultiDataset(docs, classNum) = dataset
 
 
     // Make a SparkContext
@@ -587,10 +587,10 @@ object LogisticRegressionExecutor {
   /**
     * Execute (Normalized TFIDF) ++ (Normalized Word2Vec) by Logistic Regression
     *
-    * @param multiClassifiable
+    * @param dataset
     * @param trainSetRate
     */
-  def `execute (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(multiClassifiable: LabeledMultiClassifiable[Int], trainSetRate: Double, word2VecDem: Int, crossValidationTimes: Int, enableNormalizationForTFIDF: Boolean, enableNormaliztionForWord2vec: Boolean): Unit = {
+  def `execute (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(dataset: LabeledMultiDataset[Int], trainSetRate: Double, word2VecDem: Int, crossValidationTimes: Int, enableNormalizationForTFIDF: Boolean, enableNormaliztionForWord2vec: Boolean): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
@@ -599,7 +599,7 @@ object LogisticRegressionExecutor {
 
 
     // extract the positive docs and negative docs
-    val LabeledMultiDataset(docs, classNum) = multiClassifiable.multiDataset()
+    val LabeledMultiDataset(docs, classNum) = dataset
 
 
     // Make a SparkContext
@@ -733,10 +733,10 @@ object LogisticRegressionExecutor {
   /**
     * Execute (Normalized TFIDF) ++ (Normalized Word2Vec) by Logistic Regression
     *
-    * @param multiClassifiable
+    * @param dataset
     * @param trainSetRate
     */
-  def `execute train-test (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(multiClassifiable: LabeledTrainTestMultiClassifiable[Int], trainSetRate: Double, word2VecDem: Int, enableNormalizationForTFIDF: Boolean, enableNormaliztionForWord2vec: Boolean): Unit = {
+  def `execute train-test (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(dataset: LabeledTrainTestMultiDataset[Int], trainSetRate: Double, word2VecDem: Int, enableNormalizationForTFIDF: Boolean, enableNormaliztionForWord2vec: Boolean): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
@@ -745,7 +745,7 @@ object LogisticRegressionExecutor {
 
 
     // extract the positive docs and negative docs
-    val LabeledTrainTestMultiDataset(docs, classNum) = multiClassifiable.trainTestMultiDataset()
+    val LabeledTrainTestMultiDataset(docs, classNum) = dataset
 
 
     // Make a SparkContext
@@ -884,17 +884,17 @@ object LogisticRegressionExecutor {
   /**
     * Execute (Normalized TFIDF) ++ (Normalized Word2Vec) by Logistic Regression
     *
-    * @param multiClassifiable
+    * @param dataset
     * @param trainSetRate
     */
-  def `execute train-test (Normalized Spark's TFIDF)`(multiClassifiable: LabeledTrainTestMultiClassifiable[Int], trainSetRate: Double, enableNormalizationForTFIDF: Boolean): Unit = {
+  def `execute train-test (Normalized Spark's TFIDF)`(dataset: LabeledTrainTestMultiDataset[Int], trainSetRate: Double, enableNormalizationForTFIDF: Boolean): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
 
 
     // extract the positive docs and negative docs
-    val LabeledTrainTestMultiDataset(docs, classNum) = multiClassifiable.trainTestMultiDataset()
+    val LabeledTrainTestMultiDataset(docs, classNum) = dataset
 
 
     // Make a SparkContext

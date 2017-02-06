@@ -2,7 +2,7 @@ package io.github.nwtgck.japan_times_feature_vector.downloader
 
 import java.io.{File, PrintWriter}
 
-import io.github.nwtgck.japan_times_feature_vector.datatype.{EngDocument, MultiClassifiable, MultiDataset}
+import io.github.nwtgck.japan_times_feature_vector.datatype.{EngDocument, MultiDataset}
 
 import scala.io.Source
 import scala.pickling.Defaults._
@@ -11,7 +11,7 @@ import scala.pickling.json._
 /**
   * Created by Ryo on 2016/11/25.
   */
-object JapanTimesDataset extends MultiClassifiable{
+object JapanTimesDataset{
 
   private val japanTimesJsonFilePath = "./data/japan-times-multi-docs.json"
 
@@ -40,7 +40,7 @@ object JapanTimesDataset extends MultiClassifiable{
     docsSeq
   }
 
-  override def multiDataset(): MultiDataset = {
+  def multiDataset(): MultiDataset = {
     val docsSeq: Seq[Seq[EngDocument]] =
       // if the cache file exists, use cache file for MultiDataset
       if(new File(japanTimesJsonFilePath).exists()){
