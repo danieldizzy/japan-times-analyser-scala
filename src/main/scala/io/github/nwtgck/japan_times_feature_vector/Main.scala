@@ -103,7 +103,7 @@ object Main {
 
       // Train-Set: only title, Test-Set: only title
       TrainAndTestFilesGenerator.generateMultiSvmLightFormatFiles(
-        JapanTimesDonwloader.onlyTitleMultiDataset,
+        dataset = JapanTimesDonwloader.onlyTitleMultiDataset,
         trainFilePath = "./data/multi-class-only-title-train-set",
         testFilePath  = "./data/multi-class-only-title-test-set",
         trainSetRate  = 0.8
@@ -126,7 +126,7 @@ object Main {
 
       // Train-Set: title+article, Test-Set: only title
       TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFiles(
-        JapanTimesDonwloader.`Multi-Dataset of (train-set: title + article, test-set: only title)`,
+        dataset = JapanTimesDonwloader.`Multi-Dataset of (train-set: title + article, test-set: only title)`,
         trainFilePath = "./data/multi-class-title-article-train-set",
         testFilePath = "./data/multi-class-title-article-test-set",
         trainSetRate = 0.8
@@ -146,9 +146,10 @@ object Main {
     if(false){
       // *** Multi Classification for SVM-Light ***
 
-      // Train-Set: many titles+article, Test-Set: only title
+      // Train: many titles+article
+      // Test : only title
       TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFiles(
-        JapanTimesDonwloader.`Multi-Dataset of (train-set: many titles + article, test-set: only title)`(titleTimes = 20),
+        dataset = JapanTimesDonwloader.`Multi-Dataset of (train-set: many titles + article, test-set: only title)`(titleTimes = 20),
         trainFilePath = "./data/multi-class-20-titles-article-train-set",
         testFilePath  = "./data/multi-class-20-titles-article-test-set",
         trainSetRate  = 0.8
@@ -211,6 +212,8 @@ object Main {
     }
 
     if(false){
+      // Train: article
+      // Test : article
       // make train-set file and test-set file (TFIDF & word2vec collaboration) for SVM light
       TrainAndTestFilesGenerator.generateMultiSvmLightFormatFilesWithGenerator(
         JapanTimesDataset.multiDataset(),
@@ -239,9 +242,10 @@ object Main {
 
 
     if(false) {
-      // Train-Set: many titles+article, Test-Set: only title
+      // Train: many titles+article
+      // Test : only title
       TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFilesWithGenerator(
-        JapanTimesDonwloader.`Multi-Dataset of (train-set: many titles + article, test-set: only title)`(titleTimes = 20),
+        dataset = JapanTimesDonwloader.`Multi-Dataset of (train-set: many titles + article, test-set: only title)`(titleTimes = 20),
         trainFilePath = "./data/multi-class-20-titles-tfidf-word2vec-article-train-set",
         testFilePath  = "./data/multi-class-20-titles-tfidf-word2vec-article-test-set",
         trainSetRate  = 0.8,
@@ -259,9 +263,10 @@ object Main {
     }
 
     if(false) {
-      // Train-Set: many titles+article, Test-Set: only title
+      // Train: many titles+article
+      // Test : only title
       TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFilesWithGenerator(
-        JapanTimesDonwloader.`Multi-Dataset of (train-set: many titles + article, test-set: only title)`(titleTimes = 20),
+        dataset = JapanTimesDonwloader.`Multi-Dataset of (train-set: many titles + article, test-set: only title)`(titleTimes = 20),
         trainFilePath = "./data/multi-class-20-titles-tfidf-word2vec-tfidf-article-train-set",
         testFilePath  = "./data/multi-class-20-titles-tfidf-word2vec-tfidf-article-test-set",
         trainSetRate  = 0.8,
@@ -332,8 +337,10 @@ object Main {
 
 
     if(false) {
+      // Train: article
+      // Test : article
       LogisticRegressionExecutor.executeTFIDFAndWord2Vec(
-        JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         "./gensim-text-for-word2vec/jp_times_with_title.txt",
         word2VecDem = 100,
@@ -342,8 +349,10 @@ object Main {
     }
 
     if(false) {
+      // Train: article
+      // Test : article
       LogisticRegressionExecutor.executeTFIDF(
-        JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         "./gensim-text-for-word2vec/jp_times_with_title.txt",
         crossValidationTimes = 10
@@ -353,12 +362,14 @@ object Main {
 
     if(false) {
       // [Setting]
+
+      // Train: article
+      // Test : article
       // TFIDF Normalization   : Enable
       // Word2vec Normalization: Enable
       LogisticRegressionExecutor.`execute (Normalized TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
-//        "./gensim-text-for-word2vec/jp_times_with_title.txt",
         word2VecDem = 100,
         crossValidationTimes = 10,
         enableNormalizationForTFIDF  = true,
@@ -377,12 +388,14 @@ object Main {
 
     if(false) {
       // [Setting]
+
+      // Train: article
+      // Test : article
       // TFIDF Normalization   : Disable
       // Word2vec Normalization: Enable
       LogisticRegressionExecutor.`execute (Normalized TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
-//        "./gensim-text-for-word2vec/jp_times_with_title.txt",
         word2VecDem = 100,
         crossValidationTimes = 10,
         enableNormalizationForTFIDF   = false,
@@ -401,12 +414,13 @@ object Main {
 
 
     if(false) {
+      // Train: article
+      // Test : article
       // TFIDF Normalization   : Enable
       // Word2vec Normalization: Disable
       LogisticRegressionExecutor.`execute (Normalized TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
-//        "./gensim-text-for-word2vec/jp_times_with_title.txt",
         word2VecDem = 100,
         crossValidationTimes = 10,
         enableNormalizationForTFIDF   = true,
@@ -426,10 +440,12 @@ object Main {
     if(false) {
       // [Use Spark's TFIDF]
       //
+      // Train: article
+      // Test : article
       // TFIDF Normalization   : Disable
       // Word2vec Normalization: Disable
       LogisticRegressionExecutor.`execute (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 184, Articles: Economy & Politics & Crime-Legal & Editorials & Corporate`),
+        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 184, Articles: Economy & Politics & Crime-Legal & Editorials & Corporate`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         crossValidationTimes = 10,
@@ -444,10 +460,12 @@ object Main {
     if(false) {
       // [Use Spark's TFIDF]
       //
+      // Train: article
+      // Test : article
       // TFIDF Normalization   : Enable
       // Word2vec Normalization: Disable
       LogisticRegressionExecutor.`execute (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         crossValidationTimes = 10,
@@ -479,7 +497,7 @@ object Main {
       // [Use only Spark's TFIDF]
 
       LogisticRegressionExecutor.`execute (Normalized Spark's TFIDF)`(
-        JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 184, Articles: Economy & Politics & Crime-Legal & Editorials & Corporate`),
+        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 184, Articles: Economy & Politics & Crime-Legal & Editorials & Corporate`),
         trainSetRate = 0.8,
         crossValidationTimes = 10
       )
@@ -496,19 +514,27 @@ object Main {
     }
 
 
-    if(false) {
+    if(true) {
       // [Use Spark's TFIDF]
       //
-      // TFIDF Normalization   : Enable
+      // Train: article
+      // Test : article
+      // TFIDF Normalization   : Disable
       // Word2vec Normalization: Disable
       LogisticRegressionExecutor.`execute (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         crossValidationTimes = 10,
         enableNormalizationForTFIDF   = false,
         enableNormaliztionForWord2vec = false
       )
+//      Average Accuracy: 0.9681362725450902
+//      Max Accuracy    : 0.9739478957915831
+//      Min Accuracy    : 0.9599198396793587
+//      -----------------------------------
+//      TFIDF abx max     : 176.928060220864
+//      word2vec abs max: 136.46763747135992
 
     }
 
@@ -516,10 +542,12 @@ object Main {
     if(false) {
       // [Use Spark's TFIDF]
       //
+      // Train: title
+      // Test : title
       // TFIDF Normalization   : Disable
       // Word2vec Normalization: Disable
       LogisticRegressionExecutor.`execute (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only title, test-set: only title)`(downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only title, test-set: only title)`(downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         crossValidationTimes = 10,
@@ -539,10 +567,12 @@ object Main {
     if(false) {
       // [Use Spark's TFIDF]
       //
+      // Train: title
+      // Test : title
       // TFIDF Normalization   : Disable
       // Word2vec Normalization: Enable
       LogisticRegressionExecutor.`execute (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only title, test-set: only title)`(downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only title, test-set: only title)`(downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         crossValidationTimes = 10,
@@ -562,10 +592,12 @@ object Main {
     if(false) {
       // [Use Spark's TFIDF]
       //
+      // Train: title
+      // Test : title
       // TFIDF Normalization   : Enable
       // Word2vec Normalization: Disable
       LogisticRegressionExecutor.`execute (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only title, test-set: only title)`(downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only title, test-set: only title)`(downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         crossValidationTimes = 10,
@@ -586,10 +618,12 @@ object Main {
     if(false) {
       // [Use Spark's TFIDF]
       //
+      // Train: title
+      // Test : title
       // TFIDF Normalization   : Disable
       // Word2vec Normalization: Disable
       LogisticRegressionExecutor.`execute (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only title, test-set: only title)`(downloadInfo = `Page-Limit: 184, Articles: Economy & Politics & Crime-Legal & Editorials & Corporate`),
+        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only title, test-set: only title)`(downloadInfo = `Page-Limit: 184, Articles: Economy & Politics & Crime-Legal & Editorials & Corporate`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         crossValidationTimes = 10,
@@ -605,7 +639,7 @@ object Main {
       // TFIDF Normalization   : Disable
       // Word2vec Normalization: Disable
       LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 30, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         enableNormalizationForTFIDF   = false,
@@ -618,12 +652,12 @@ object Main {
       //      word2vec abs max: 88.96915444626939
     }
 
-    if(true) {
+    if(false) {
       // [Not use Spark's TFIDF]
       //
       // TFIDF Normalization   : Disable
       LogisticRegressionExecutor.`execute train-test (Normalized TFIDF)`(
-        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         enableNormalizationForTFIDF   = false
       )
@@ -639,7 +673,7 @@ object Main {
       // TFIDF Normalization   : Disable
       // Word2vec Normalization: Disable
       LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         enableNormalizationForTFIDF   = false,
@@ -661,7 +695,7 @@ object Main {
       // TFIDF Normalization   : Disable
       // Word2vec Normalization: Enable
       LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         enableNormalizationForTFIDF   = false,
@@ -682,7 +716,7 @@ object Main {
       // TFIDF Normalization   : Disable
       // Word2vec Normalization: Enable
       LogisticRegressionExecutor.`execute train-test (Normalized TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         word2VecNumIterations = 1,
@@ -703,7 +737,7 @@ object Main {
       // TFIDF Normalization   : Disable
       // Word2vec Normalization: Enable
       LogisticRegressionExecutor.`execute train-test (Normalized TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         word2VecNumIterations = 100,
@@ -721,7 +755,7 @@ object Main {
 
       val LabeledMultiDataset(additionalDocs, classNum) = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(`Page-Limit: 184, Articles: Economy & Politics & Crime-Legal & Editorials & Corporate`)
       LogisticRegressionExecutor.`execute train-test (Normalized TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         word2VecNumIterations = 1,
@@ -742,7 +776,7 @@ object Main {
       // TFIDF Normalization   : Enable
       // Word2vec Normalization: Disable
       LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         enableNormalizationForTFIDF   = true,
@@ -762,7 +796,7 @@ object Main {
       // TFIDF Normalization   : Enable
       // Word2vec Normalization: Disable
       LogisticRegressionExecutor.`execute train-test (Normalized TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         word2VecNumIterations = 1,
@@ -784,7 +818,7 @@ object Main {
 
       val LabeledMultiDataset(additionalDocs, classNum) = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(`Page-Limit: 184, Articles: Economy & Politics & Crime-Legal & Editorials & Corporate`)
       LogisticRegressionExecutor.`execute train-test (Normalized TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         word2VecNumIterations = 1,
@@ -805,7 +839,7 @@ object Main {
       // TFIDF Normalization   : Enable
       // Word2vec Normalization: Enable
       LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         enableNormalizationForTFIDF   = true,
@@ -824,7 +858,7 @@ object Main {
       // TFIDF Normalization   : Enable
       // Word2vec Normalization: Enable
       LogisticRegressionExecutor.`execute train-test (Normalized TFIDF) ++ (Normalized Word2Vec)`(
-        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
         word2VecNumIterations = 1,
@@ -844,7 +878,7 @@ object Main {
       //
       // TFIDF Normalization   : Enable
       LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF)`(
-        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         enableNormalizationForTFIDF   = true
       )
@@ -858,7 +892,7 @@ object Main {
       //
       // TFIDF Normalization   : Disable
       LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF)`(
-        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         enableNormalizationForTFIDF   = false
       )
@@ -875,7 +909,7 @@ object Main {
       //
       // TFIDF Normalization   : Enable
       LogisticRegressionExecutor.`execute train-test (Normalized Spark's TFIDF)`(
-        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: title)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        dataset = JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: title)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         enableNormalizationForTFIDF = true
       )
