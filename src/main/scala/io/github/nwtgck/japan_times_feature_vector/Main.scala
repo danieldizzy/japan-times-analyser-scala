@@ -57,6 +57,13 @@ object Main {
         testFilePath = "./data/test-set",
         trainSetRate = 0.8
       )
+//      $ ./svm_learn train-set model
+//      $ ./svm_classify test-set model
+//        Reading model...OK. (196 support vectors read)
+//      Classifying test examples..100..done
+//      Runtime (without IO) in cpu-seconds: 0.00
+//      Accuracy on test set: 100.00% (122 correct, 0 incorrect, 122 total)
+//      Precision/recall on test set: 100.00%/100.00%
     }
 
 
@@ -69,6 +76,15 @@ object Main {
         testFilePath  =  "./data/multi-class-test-set",
         trainSetRate  = 0.8
       )
+
+//      $ ./svm_multiclass_learn -c 1000 multi-class-train-set model
+//      $ ./svm_multiclass_classify multi-class-test-set model
+//        Reading model...done.
+//        Reading test examples... (255 examples) done.
+//      Classifying test examples...done
+//      Runtime (without IO) in cpu-seconds: 0.00
+//      Average loss on test set: 1.9608
+//      Zero/one-error on test set: 1.96% (250 correct, 5 incorrect, 255 total)
     }
 
 
@@ -92,6 +108,15 @@ object Main {
         testFilePath  = "./data/multi-class-only-title-test-set",
         trainSetRate  = 0.8
       )
+//      $ ./svm_multiclass_learn -c 1000 multi-class-only-title-train-set  model
+//      $ ./svm_multiclass_classify multi-class-only-title-test-set  model
+//        Reading model...done.
+//        Reading test examples... (237 examples) done.
+//      Classifying test examples...done
+//      Runtime (without IO) in cpu-seconds: 0.00
+//      Average loss on test set: 12.6582
+//      Zero/one-error on test set: 12.66% (207 correct, 30 incorrect, 237 total)
+
     }
 
 
@@ -106,6 +131,15 @@ object Main {
         testFilePath = "./data/multi-class-title-article-test-set",
         trainSetRate = 0.8
       )
+
+//      $ ./svm_multiclass_learn -c 1000 multi-class-title-article-train-set  model
+//      $ ./svm_multiclass_classify  multi-class-title-article-test-set  model
+//        Reading model...done.
+//        Reading test examples... (237 examples) done.
+//      Classifying test examples...done
+//      Runtime (without IO) in cpu-seconds: 0.00
+//      Average loss on test set: 10.5485
+//      Zero/one-error on test set: 10.55% (212 correct, 25 incorrect, 237 total)
     }
 
 
@@ -119,6 +153,14 @@ object Main {
         testFilePath  = "./data/multi-class-20-titles-article-test-set",
         trainSetRate  = 0.8
       )
+//      $ ./svm_multiclass_learn -c 1000 multi-class-20-titles-article-train-set  model
+//      $ ./svm_multiclass_classify multi-class-20-titles-article-test-set  model
+//        Reading model...done.
+//        Reading test examples... (237 examples) done.
+//      Classifying test examples...done
+//      Runtime (without IO) in cpu-seconds: 0.00
+//      Average loss on test set: 8.4388
+//      Zero/one-error on test set: 8.44% (217 correct, 20 incorrect, 237 total)
     }
 
 
@@ -177,6 +219,16 @@ object Main {
         trainSetRate  = 0.8,
         generator     = FeatureVectorGeneratorE.`generate TFIDF & Word2Vec vectors and Words`
       )
+
+//      $ ./svm_multiclass_learn -c 1000 multi-tfidf-word2vec-train-set  model
+//      $ ./svm_multiclass_classify multi-tfidf-word2vec-test-set  model
+//        Reading model...done.
+//        Reading test examples... (255 examples) done.
+//      Classifying test examples...done
+//      Runtime (without IO) in cpu-seconds: 0.00
+//      Average loss on test set: 1.1765
+//      Zero/one-error on test set: 1.18% (252 correct, 3 incorrect, 255 total)
+
     }
 
 
@@ -194,8 +246,16 @@ object Main {
         testFilePath  = "./data/multi-class-20-titles-tfidf-word2vec-article-test-set",
         trainSetRate  = 0.8,
         generator     = FeatureVectorGeneratorE.`generate TFIDF & Word2Vec vectors and Words`
-
       )
+//      $ ./svm_multiclass_learn -c 1000 multi-class-20-titles-tfidf-word2vec-article-train-set  model
+//      $ ./svm_multiclass_classify multi-class-20-titles-tfidf-word2vec-article-test-set  model
+//        Reading model...done.
+//        Reading test examples... (237 examples) done.
+//      Classifying test examples...done
+//      Runtime (without IO) in cpu-seconds: 0.00
+//      Average loss on test set: 54.8523
+//      Zero/one-error on test set: 54.85% (107 correct, 130 incorrect, 237 total)
+
     }
 
     if(false) {
@@ -208,6 +268,15 @@ object Main {
         generator     = FeatureVectorGeneratorE.`generate TFIDF vec ++ (Word2Vec*TFIDF) vectors and Words`
 
       )
+
+//      $ ./svm_multiclass_learn -c 1000 multi-class-20-titles-tfidf-word2vec-tfidf-article-train-set  model
+//      $ ./svm_multiclass_classify multi-class-20-titles-tfidf-word2vec-tfidf-article-test-set  model
+//        Reading model...done.
+//        Reading test examples... (237 examples) done.
+//      Classifying test examples...done
+//      Runtime (without IO) in cpu-seconds: 0.00
+//      Average loss on test set: 25.7384
+//      Zero/one-error on test set: 25.74% (176 correct, 61 incorrect, 237 total)
     }
 
 
@@ -632,7 +701,7 @@ object Main {
 
     }
 
-    if(true) {
+    if(false) {
       // [Not use Spark's TFIDF and Additional docs for word2vec]
       //
       // TFIDF Normalization   : Disable
