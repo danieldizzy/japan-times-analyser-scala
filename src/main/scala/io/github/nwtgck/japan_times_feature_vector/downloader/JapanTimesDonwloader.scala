@@ -177,18 +177,18 @@ object JapanTimesDonwloader{
     )
   }
 
-  lazy val onlyTitleMultiClassifiable: MultiDataset = {
+  lazy val onlyTitleMultiDataset: MultiDataset = {
       val artsSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
       MultiDataset(docsSeq = artsSeq.map{arts => arts.map(art => EngDocument(art.title))})
     }
 
-  lazy val onlyArticleMultiClassifiable: MultiDataset = {
+  lazy val onlyArticleMultiDataset: MultiDataset = {
       val artsSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
       MultiDataset(docsSeq = artsSeq.map{arts => arts.map(art => EngDocument(art.entity))})
     }
 
 
-  lazy val `Multi-Classfiable of (train-set: title + article, test-set: only title)`: TrainTestMultiDataset = {
+  lazy val `Multi-Dataset of (train-set: title + article, test-set: only title)`: TrainTestMultiDataset = {
       val artsSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
       TrainTestMultiDataset(artsSeq.map(arts => arts.map(art =>
         TrainTestDocument(
@@ -200,7 +200,7 @@ object JapanTimesDonwloader{
 
 
 
-  def `Multi-Classfiable of (train-set: many titles + article, test-set: only title)`(titleTimes: Int): TrainTestMultiDataset = {
+  def `Multi-Dataset of (train-set: many titles + article, test-set: only title)`(titleTimes: Int): TrainTestMultiDataset = {
       val artsSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
       TrainTestMultiDataset(artsSeq.map(arts => arts.map(art =>
         TrainTestDocument(
@@ -211,11 +211,11 @@ object JapanTimesDonwloader{
     }
 
 
-  def `Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`(downloadInfo: DownloadInfo): LabeledMultiDataset[Int] =
+  def `Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo: DownloadInfo): LabeledMultiDataset[Int] =
       LabeledMultiDataset(docs = getLabeledJapanTimesArticlesByPath(downloadInfo).map{art => LabeledDocument(art.label, art.entity)}, classNum = pageToUrls.length)
 
 
-  def `Labeled Multi-Classfiable of (train-set: only title, test-set: only title)`(downloadInfo: DownloadInfo): LabeledMultiDataset[Int] =
+  def `Labeled Multi-Dataset of (train-set: only title, test-set: only title)`(downloadInfo: DownloadInfo): LabeledMultiDataset[Int] =
       LabeledMultiDataset(docs = getLabeledJapanTimesArticlesByPath(downloadInfo).map{art => LabeledDocument(art.label, art.title)}, classNum = downloadInfo.pageToUrls.length)
 
 
