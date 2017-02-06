@@ -42,7 +42,7 @@ object Word2VecGenerator {
   }
 
 
-  def calcOrGetCacheModelByAllDocs(sparkContext: SparkContext, vectorSize: Int, numIterations: Int, allDocuments: Seq[Document]) = {
+  def calcOrGetCacheModelByAllDocs(sparkContext: SparkContext, vectorSize: Int, numIterations: Int, allDocuments: Seq[Document], additionalDocsForWord2vec: Seq[Document] = Seq.empty) = {
 
 
     val allWordsSize = allDocuments.flatMap(_.wordsSet).size
@@ -51,7 +51,8 @@ object Word2VecGenerator {
 
     if(!new File(corpusPath).exists()){
 //      sparkContext.textFile("dummy").saveAsTextFile(corpusPath)
-      sparkContext.makeRDD(allDocuments).map(_.entity).saveAsTextFile(corpusPath)
+      (sparkContext.makeRDD(allDocuments).map(_.entity) ++ sparkContext.makeRDD(additionalDocsForWord2vec).map(_.entity))
+        .saveAsTextFile(corpusPath)
 
     }
 

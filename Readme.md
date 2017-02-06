@@ -111,6 +111,56 @@ if(false){
 
 If you want to execute a process, you should change `false` to `true`. It's easy to toggle the process.
 
+# Explanation of Packages
+
+## `datatype` package
+
+Classes on this package are very very simple. These are for only structures.
+
+For example,
+
+```scala
+case class BinaryDataset(posDocs: Seq[EngDocument], negDocs: Seq[EngDocument])
+```
+
+```scala
+case class DownloadInfo(storedPath: String, pageLimit: Int, pageToUrls: Seq[Int => String])
+```
+
+They are very simple.
+
+## `downloader` package
+
+* `TimesGetterJsoup.scala` is a scraper to get Japan Times Articles
+* `JapanTimesDownloader.scala` is a user of `TimesGetterJsoup.scala` to download articles and cache them into a file
+* `FigureAndSumoDataset` is old
+* `JapanTimesDataset` is old
+
+## `pycall` package
+
+`pycall` is my python library which ename us to connect Python with other language such as Scala.
+
+`PythonCall.scala` receives Python object from a Python program via TCP connection in localhost.   
+To do this, you have to run the pycall python program in advance. 
+
+`pycall` is used for getting word2vec, but I use Spark's word2vec. So now I complete all in Scala code.
+
+## `text_file_generator` package
+
+They are generators for `SVM-light` format or `gensim` readable format
+
+Now, I complete all in Scala code.
+
+(I use Spark's LogisticRegression instead of SVM-light)
+
+(I use Spark's word2vec instead of `gensim`)
+
+
+## `vector_generator` package
+
+They calc TFIDF or word2vec.
+
+
 # CAUTION
 
 This source code has many repeated sources. In other word, this ignore DRY(Don't Repeat Yourself). 

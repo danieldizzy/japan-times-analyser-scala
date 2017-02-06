@@ -344,7 +344,7 @@ object LogisticRegressionExecutor {
     * @param dataset
     * @param trainSetRate
     */
-  def `execute train-test (Normalized TFIDF) ++ (Normalized Word2Vec)`(dataset: LabeledTrainTestMultiDataset[Int], trainSetRate: Double, word2VecDem: Int, word2VecNumIterations: Int, enableNormalizationForTFIDF: Boolean, enableNormaliztionForWord2vec: Boolean): Unit = {
+  def `execute train-test (Normalized TFIDF) ++ (Normalized Word2Vec)`(dataset: LabeledTrainTestMultiDataset[Int], trainSetRate: Double, word2VecDem: Int, word2VecNumIterations: Int, enableNormalizationForTFIDF: Boolean, enableNormaliztionForWord2vec: Boolean, additionalDocsForWord2vec: Seq[Document] = Seq.empty): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
@@ -379,7 +379,7 @@ object LogisticRegressionExecutor {
     val wordToVec: Map[Word, DenseVector[Double]] = {
       // word2vec model
       //      val word2VecModel = Word2VecGenerator.calcOrGetCacheModel(sparkContext = sparkContext, vectorSize = word2VecDem, jptimesFilePath = jptimesFilePath)
-      val word2VecModel = Word2VecGenerator.calcOrGetCacheModelByAllDocs(sparkContext = sparkContext, vectorSize = word2VecDem, numIterations = word2VecNumIterations, allDocuments = allDocs)
+      val word2VecModel = Word2VecGenerator.calcOrGetCacheModelByAllDocs(sparkContext = sparkContext, vectorSize = word2VecDem, numIterations = word2VecNumIterations, allDocuments = allDocs, additionalDocsForWord2vec = additionalDocsForWord2vec)
       // All zero vector
       val allZeroVec    = DenseVector.zeros[Double](word2VecDem)
       // all words for word2vec (Word2Vec ignore some words which don't appear frequently)

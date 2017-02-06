@@ -632,6 +632,29 @@ object Main {
 
     }
 
+    if(true) {
+      // [Not use Spark's TFIDF and Additional docs for word2vec]
+      //
+      // TFIDF Normalization   : Disable
+      // Word2vec Normalization: Enable
+
+      val LabeledMultiDataset(additionalDocs, classNum) = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(`Page-Limit: 184, Articles: Economy & Politics & Crime-Legal & Editorials & Corporate`)
+      LogisticRegressionExecutor.`execute train-test (Normalized TFIDF) ++ (Normalized Word2Vec)`(
+        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        word2VecDem = 100,
+        word2VecNumIterations = 1,
+        enableNormalizationForTFIDF   = false,
+        enableNormaliztionForWord2vec = true,
+        additionalDocsForWord2vec     = additionalDocs
+      )
+//      Accuracy    : 0.8096192384769539
+//      -----------------------------------
+//      TFIDF abx max     : 313.6538216099216
+//      word2vec abs max: 180.10421691666124
+
+    }
+
     if(false) {
       // [Use Spark's TFIDF]
       //
@@ -672,6 +695,28 @@ object Main {
 
     }
 
+    if(false) {
+      // [Not use Spark's TFIDF and Additional docs for word2vec]
+      //
+      // TFIDF Normalization   : Enable
+      // Word2vec Normalization: Disable
+
+      val LabeledMultiDataset(additionalDocs, classNum) = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(`Page-Limit: 184, Articles: Economy & Politics & Crime-Legal & Editorials & Corporate`)
+      LogisticRegressionExecutor.`execute train-test (Normalized TFIDF) ++ (Normalized Word2Vec)`(
+        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        word2VecDem = 100,
+        word2VecNumIterations = 1,
+        enableNormalizationForTFIDF   = true,
+        enableNormaliztionForWord2vec = false,
+        additionalDocsForWord2vec     = additionalDocs
+      )
+//      Accuracy    : 0.8096192384769539
+//      -----------------------------------
+//      TFIDF abx max     : 344.1522975545592
+//      word2vec abs max: 91.04199107439217
+    }
+
 
     if(false) {
       // [Use Spark's TFIDF]
@@ -692,7 +737,7 @@ object Main {
 //      word2vec abs max: 58.38296064088354
     }
 
-    if(true) {
+    if(false) {
       // [Not use Spark's TFIDF]
       //
       // TFIDF Normalization   : Enable
