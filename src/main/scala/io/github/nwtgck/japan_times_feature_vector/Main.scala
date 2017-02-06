@@ -1,7 +1,7 @@
 package io.github.nwtgck.japan_times_feature_vector
 
 import io.github.nwtgck.japan_times_feature_vector.classifier.LogisticRegressionExecutor
-import io.github.nwtgck.japan_times_feature_vector.datatype.{DownloadInfo, EngDocument, JapanTimesArticle, MultiDataset}
+import io.github.nwtgck.japan_times_feature_vector.datatype._
 import io.github.nwtgck.japan_times_feature_vector.downloader.{FigureAndSumoDataset, JapanTimesDataset, JapanTimesDonwloader, TimesGetterJsoup}
 import io.github.nwtgck.japan_times_feature_vector.pycall.PythonCall
 import io.github.nwtgck.japan_times_feature_vector.text_file_generator.{TextGeneratorForGensim, TrainAndTestFilesGenerator}
@@ -100,7 +100,7 @@ object Main {
     }
 
 
-    if(true){
+    if(false){
       // Train-Set: many titles+article, Test-Set: only title
       TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFiles(
         JapanTimesDonwloader.`Multi-Classfiable of (train-set: many titles + article, test-set: only title)`(titleTimes = 20),
@@ -590,6 +590,7 @@ object Main {
         JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
+        word2VecNumIterations = 1,
         enableNormalizationForTFIDF   = false,
         enableNormaliztionForWord2vec = true
       )
@@ -600,6 +601,22 @@ object Main {
 
     }
 
+
+    if(false) {
+      // [Not use Spark's TFIDF]
+      //
+      // TFIDF Normalization   : Disable
+      // Word2vec Normalization: Enable
+      LogisticRegressionExecutor.`execute train-test (Normalized TFIDF) ++ (Normalized Word2Vec)`(
+        JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        word2VecDem = 100,
+        word2VecNumIterations = 100,
+        enableNormalizationForTFIDF   = false,
+        enableNormaliztionForWord2vec = true
+      )
+
+    }
 
     if(false) {
       // [Use Spark's TFIDF]
@@ -630,6 +647,7 @@ object Main {
         JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
+        word2VecNumIterations = 1,
         enableNormalizationForTFIDF   = true,
         enableNormaliztionForWord2vec = false
       )
@@ -660,7 +678,7 @@ object Main {
 //      word2vec abs max: 58.38296064088354
     }
 
-    if(true) {
+    if(false) {
       // [Not use Spark's TFIDF]
       //
       // TFIDF Normalization   : Enable
@@ -669,6 +687,7 @@ object Main {
         JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
         trainSetRate = 0.8,
         word2VecDem = 100,
+        word2VecNumIterations = 1,
         enableNormalizationForTFIDF   = true,
         enableNormaliztionForWord2vec = true
       )
@@ -725,6 +744,16 @@ object Main {
 //      -----------------------------------
 //      TFIDF abx max     : 260.35913929858793
 
+    }
+
+    if(true){
+      val LabeledMultiDataset(docs, classNum) = JapanTimesDonwloader.`Labeled Multi-Classfiable of (train-set: only article, test-set: only article)`(`Page-Limit: 184, Articles: Economy & Politics & Crime-Legal & Editorials & Corporate`).multiDataset()
+      val sparkContext = new SparkContext(new SparkConf().setAppName("JPTIMES").setMaster("local[*]"))
+      val word2VecModel = Word2VecGenerator.calcOrGetCacheModelByAllDocs(sparkContext = sparkContext, vectorSize = 100, allDocuments = docs, numIterations = 1)
+      println(word2VecModel.findSynonyms("Trump", 10).toList)
+      println(word2VecModel.findSynonyms("Japan", 10).toList)
+      println(word2VecModel.findSynonyms("Abe", 10).toList)
+      println(word2VecModel.findSynonyms("is", 10).toList)
     }
 
 

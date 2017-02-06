@@ -42,16 +42,17 @@ object Word2VecGenerator {
   }
 
 
-  def calcOrGetCacheModelByAllDocs(sparkContext: SparkContext, vectorSize: Int, allDocuments: Seq[Document]) = {
+  def calcOrGetCacheModelByAllDocs(sparkContext: SparkContext, vectorSize: Int, numIterations: Int, allDocuments: Seq[Document]) = {
 
 
     val allWordsSize = allDocuments.flatMap(_.wordsSet).size
     val corpusPath       = s"./data/cache-word2vec-courpus-wordsize${allWordsSize}"
-    val modelPath        = s"./data/cache-word2vec-model-wordsize${allWordsSize}-dem${vectorSize}"
+    val modelPath        = s"./data/cache-word2vec-model-wordsize${allWordsSize}-dem${vectorSize}-iternum${numIterations}"
 
     if(!new File(corpusPath).exists()){
 //      sparkContext.textFile("dummy").saveAsTextFile(corpusPath)
       sparkContext.makeRDD(allDocuments).map(_.entity).saveAsTextFile(corpusPath)
+
     }
 
     val input = sparkContext.textFile(corpusPath).map(s => s.split(" ").toVector)
@@ -64,6 +65,7 @@ object Word2VecGenerator {
           .setVectorSize(vectorSize)
           //          .setNumPartitions(20)
           //          .setMinCount(1)
+          .setNumIterations(numIterations)
           .fit(input)
 
         _model.save(sparkContext, modelPath)

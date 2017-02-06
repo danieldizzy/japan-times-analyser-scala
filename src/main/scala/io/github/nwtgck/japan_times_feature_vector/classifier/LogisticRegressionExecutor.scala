@@ -225,7 +225,7 @@ object LogisticRegressionExecutor {
     val wordToVec: Map[Word, DenseVector[Double]] = {
       // word2vec model
 //      val word2VecModel = Word2VecGenerator.calcOrGetCacheModel(sparkContext = sparkContext, vectorSize = word2VecDem, jptimesFilePath = jptimesFilePath)
-      val word2VecModel = Word2VecGenerator.calcOrGetCacheModelByAllDocs(sparkContext = sparkContext, vectorSize = word2VecDem, allDocuments = docs)
+      val word2VecModel = Word2VecGenerator.calcOrGetCacheModelByAllDocs(sparkContext = sparkContext, vectorSize = word2VecDem, numIterations = 1, allDocuments = docs)
       // All zero vector
       val allZeroVec    = DenseVector.zeros[Double](word2VecDem)
       // all words for word2vec (Word2Vec ignore some words which don't appear frequently)
@@ -344,7 +344,7 @@ object LogisticRegressionExecutor {
     * @param multiClassifiable
     * @param trainSetRate
     */
-  def `execute train-test (Normalized TFIDF) ++ (Normalized Word2Vec)`(multiClassifiable: LabeledTrainTestMultiClassifiable[Int], trainSetRate: Double, word2VecDem: Int, enableNormalizationForTFIDF: Boolean, enableNormaliztionForWord2vec: Boolean): Unit = {
+  def `execute train-test (Normalized TFIDF) ++ (Normalized Word2Vec)`(multiClassifiable: LabeledTrainTestMultiClassifiable[Int], trainSetRate: Double, word2VecDem: Int, word2VecNumIterations: Int, enableNormalizationForTFIDF: Boolean, enableNormaliztionForWord2vec: Boolean): Unit = {
 
     /** [[trainSetRate]] should be between 0.0 and 1.0 */
     require(0 <= trainSetRate && trainSetRate <= 1)
@@ -379,7 +379,7 @@ object LogisticRegressionExecutor {
     val wordToVec: Map[Word, DenseVector[Double]] = {
       // word2vec model
       //      val word2VecModel = Word2VecGenerator.calcOrGetCacheModel(sparkContext = sparkContext, vectorSize = word2VecDem, jptimesFilePath = jptimesFilePath)
-      val word2VecModel = Word2VecGenerator.calcOrGetCacheModelByAllDocs(sparkContext = sparkContext, vectorSize = word2VecDem, allDocuments = allDocs)
+      val word2VecModel = Word2VecGenerator.calcOrGetCacheModelByAllDocs(sparkContext = sparkContext, vectorSize = word2VecDem, numIterations = word2VecNumIterations, allDocuments = allDocs)
       // All zero vector
       val allZeroVec    = DenseVector.zeros[Double](word2VecDem)
       // all words for word2vec (Word2Vec ignore some words which don't appear frequently)
@@ -615,7 +615,7 @@ object LogisticRegressionExecutor {
     val wordToVec: Map[Word, DenseVector[Double]] = {
       // word2vec model
       //      val word2VecModel = Word2VecGenerator.calcOrGetCacheModel(sparkContext = sparkContext, vectorSize = word2VecDem, jptimesFilePath = jptimesFilePath)
-      val word2VecModel = Word2VecGenerator.calcOrGetCacheModelByAllDocs(sparkContext = sparkContext, vectorSize = word2VecDem, allDocuments = docs)
+      val word2VecModel = Word2VecGenerator.calcOrGetCacheModelByAllDocs(sparkContext = sparkContext, vectorSize = word2VecDem, numIterations = 1, allDocuments = docs)
       // All zero vector
       val allZeroVec    = DenseVector.zeros[Double](word2VecDem)
       // all words for word2vec (Word2Vec ignore some words which don't appear frequently)
@@ -771,7 +771,7 @@ object LogisticRegressionExecutor {
     val wordToVec: Map[Word, DenseVector[Double]] = {
       // word2vec model
       //      val word2VecModel = Word2VecGenerator.calcOrGetCacheModel(sparkContext = sparkContext, vectorSize = word2VecDem, jptimesFilePath = jptimesFilePath)
-      val word2VecModel = Word2VecGenerator.calcOrGetCacheModelByAllDocs(sparkContext = sparkContext, vectorSize = word2VecDem, allDocuments = allDocs)
+      val word2VecModel = Word2VecGenerator.calcOrGetCacheModelByAllDocs(sparkContext = sparkContext, vectorSize = word2VecDem, numIterations = 1, allDocuments = allDocs)
       // All zero vector
       val allZeroVec    = DenseVector.zeros[Double](word2VecDem)
       // all words for word2vec (Word2Vec ignore some words which don't appear frequently)
