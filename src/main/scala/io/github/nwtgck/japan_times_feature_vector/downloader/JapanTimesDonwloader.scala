@@ -123,6 +123,8 @@ object JapanTimesDonwloader{
     * Download or use cache file
     * @return
     */
+
+  @deprecated
   def getJapanTimesArticlesSeq(): Seq[Seq[JapanTimesArticle]] = {
     // if the cache file exists, use cache file for MultiDataset
       if(new File(__globalJapanTimesJsonFilePath).exists()){
@@ -162,6 +164,7 @@ object JapanTimesDonwloader{
     *
     * @return
     */
+  @deprecated
   def getLabeledJapanTimesArticles: Seq[LabeledJapanTimesArticle[Int]] = {
     val articlesSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
 
@@ -177,17 +180,20 @@ object JapanTimesDonwloader{
     )
   }
 
+  @deprecated
   lazy val onlyTitleMultiDataset: MultiDataset = {
       val artsSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
       MultiDataset(docsSeq = artsSeq.map{arts => arts.map(art => EngDocument(art.title))})
     }
 
+  @deprecated
   lazy val onlyArticleMultiDataset: MultiDataset = {
       val artsSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
       MultiDataset(docsSeq = artsSeq.map{arts => arts.map(art => EngDocument(art.entity))})
     }
 
 
+  @deprecated
   lazy val `Multi-Dataset of (train-set: title + article, test-set: only title)`: TrainTestMultiDataset = {
       val artsSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
       TrainTestMultiDataset(artsSeq.map(arts => arts.map(art =>
@@ -200,6 +206,7 @@ object JapanTimesDonwloader{
 
 
 
+  @deprecated
   def `Multi-Dataset of (train-set: many titles + article, test-set: only title)`(titleTimes: Int): TrainTestMultiDataset = {
       val artsSeq: Seq[Seq[JapanTimesArticle]] = getJapanTimesArticlesSeq()
       TrainTestMultiDataset(artsSeq.map(arts => arts.map(art =>
