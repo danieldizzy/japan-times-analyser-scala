@@ -48,6 +48,8 @@ object Main {
   def main(args: Array[String]) {
 
     if(false) {
+      // *** Binary Classification for SVM-Light ***
+
       // make train-set file and test-set file for SVM light
       TrainAndTestFilesGenerator.generateSvmLightFormatFiles(
         FigureAndSumoDataset.binaryDataset(),
@@ -59,17 +61,20 @@ object Main {
 
 
     if(false) {
+      // *** Multi Classification for SVM-Light ***
+
       TrainAndTestFilesGenerator.generateMultiSvmLightFormatFiles(
         JapanTimesDataset.multiDataset(),
         trainFilePath = "./data/multi-class-train-set",
-        testFilePath = "./data/multi-class-test-set",
-        trainSetRate = 0.8
+        testFilePath  =  "./data/multi-class-test-set",
+        trainSetRate  = 0.8
       )
     }
 
 
     if(false) {
-      // Avevate length of all titles
+      // *** Average length of all titles ***
+
       val MultiDataset(seq) = JapanTimesDonwloader.onlyTitleMultiDataset
       val lengths = seq.flatMap(_.map(_.entity.length))
       val average = lengths.sum.toDouble / lengths.length
@@ -78,18 +83,22 @@ object Main {
 
 
     if(false) {
+      // *** Multi Classification for SVM-Light ***
+
       // Train-Set: only title, Test-Set: only title
       TrainAndTestFilesGenerator.generateMultiSvmLightFormatFiles(
         JapanTimesDonwloader.onlyTitleMultiDataset,
         trainFilePath = "./data/multi-class-only-title-train-set",
-        testFilePath = "./data/multi-class-only-title-test-set",
-        trainSetRate = 0.8
+        testFilePath  = "./data/multi-class-only-title-test-set",
+        trainSetRate  = 0.8
       )
     }
 
 
 
     if(false) {
+      // *** Multi Classification for SVM-Light ***
+
       // Train-Set: title+article, Test-Set: only title
       TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFiles(
         JapanTimesDonwloader.`Multi-Dataset of (train-set: title + article, test-set: only title)`,
@@ -101,12 +110,14 @@ object Main {
 
 
     if(false){
+      // *** Multi Classification for SVM-Light ***
+
       // Train-Set: many titles+article, Test-Set: only title
       TrainAndTestFilesGenerator.generateTrainTestMultiSvmLightFormatFiles(
         JapanTimesDonwloader.`Multi-Dataset of (train-set: many titles + article, test-set: only title)`(titleTimes = 20),
         trainFilePath = "./data/multi-class-20-titles-article-train-set",
-        testFilePath = "./data/multi-class-20-titles-article-test-set",
-        trainSetRate = 0.8
+        testFilePath  = "./data/multi-class-20-titles-article-test-set",
+        trainSetRate  = 0.8
       )
     }
 
@@ -114,6 +125,7 @@ object Main {
     if(false) {
       // Generate article text from article data
       TextGeneratorForGensim.generateTextsSeparatedByGroups(dirPath = "./gensim-text")
+      // (gensim is a python library)
     }
 
 
@@ -132,6 +144,9 @@ object Main {
 
 
     if(false){
+      // Sample Code of pycall
+      // (pycall is my python library which connect with python and other language)
+
       val pycall = new PythonCall()
       pycall.send(funcName = "word2vec", "was") match {
         case Success(bsonList : BasicBSONList) =>
