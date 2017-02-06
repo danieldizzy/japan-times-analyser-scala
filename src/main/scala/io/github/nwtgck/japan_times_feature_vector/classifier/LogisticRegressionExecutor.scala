@@ -585,6 +585,106 @@ object LogisticRegressionExecutor {
   }
 
   /**
+    * Execute (Normalized TFIDF) by Logistic Regression
+    *
+    * @param dataset
+    * @param trainSetRate
+    */
+  def `execute train-test (Normalized TFIDF)`(dataset: LabeledTrainTestMultiDataset[Int], trainSetRate: Double, enableNormalizationForTFIDF: Boolean): Unit = {
+
+    /** [[trainSetRate]] should be between 0.0 and 1.0 */
+    require(0 <= trainSetRate && trainSetRate <= 1)
+    //    // Number of crossvalidation times > 0
+    //    require(crossValidationTimes > 0)
+
+
+    // extract the positive docs and negative docs
+    val LabeledTrainTestMultiDataset(docs, classNum) = dataset
+
+
+    // Make a SparkContext
+    val sparkContext = new SparkContext(new SparkConf().setAppName("JPTIMES").set("spark.executor.memory", "8g").set("spark.driver.memory", "8g").setMaster("local[*]"))
+
+
+
+    // Split the vectors into vectors for train and vectors for test
+    val (trainTestTrainDocs, trainTestTestDocs) =
+    Rand.permutation(docs.length).draw.map(docs) // Shuffle the labeled docs
+      .splitAt((docs.length * trainSetRate).toInt) // Split into train and test
+
+    val trainDocs: Seq[LabeledDocument[Int]] = trainTestTrainDocs.map{d => LabeledDocument(d.label, d.trainDocument.entity)}
+    val testDocs: Seq[LabeledDocument[Int]]  = trainTestTestDocs.map(d => LabeledDocument(d.label, d.testDocument.entity))
+    val allDocs: Seq[LabeledDocument[Int]]   = trainDocs ++ testDocs
+
+    // Get the feature vectors and all words containing all documents
+    val (tfidfFeatureVectors, allWords) = FeatureVectorGeneratorE.generateTFIDFVectorsAndWords(allDocs)
+
+    println(s"number of words: ${allWords.size}")
+
+    // Absolute-max element in all IFIDF vectors for normalization
+    val tfidfAbsMaxElem = tfidfFeatureVectors.values.map(vec => vec.toArray.maxBy(_.abs)).max
+    println(s"IFIDF abx max: ${tfidfAbsMaxElem}")
+
+    // Make exmaples (I think `Example` means labeled document(?))
+    def getLabeledPoints(docs: Seq[LabeledDocument[Int]]): Seq[LabeledPoint] = {
+      for{
+        doc <- docs
+        label = doc.label-1 // Why -1? Because Spark needs label 0 to (n-1) for n classification
+      } yield {
+        // TFIDF vector
+        val tfidfFeatures = tfidfFeatureVectors(doc)
+        val tfidfFeatureStream = (0 until tfidfFeatures.size).toStream.map(i => tfidfFeatures(i))
+        val normalizedTfidfFeatures = tfidfFeatureStream.map(_ / tfidfAbsMaxElem)
+
+        val usedTfidfFeatures     = if(enableNormalizationForTFIDF) normalizedTfidfFeatures else tfidfFeatureStream
+        LabeledPoint(
+          label = label.toDouble,
+          features = new org.apache.spark.mllib.linalg.DenseVector(usedTfidfFeatures.toArray)
+        )
+      }
+
+    }
+
+
+    val trainVecs: Seq[LabeledPoint] = getLabeledPoints(trainDocs)
+    val testVecs: Seq[LabeledPoint]  = getLabeledPoints(testDocs)
+
+
+    // Print the number of total and train and test
+    println(s"Total: ${allDocs.length}, Train: ${trainVecs.length}, Test: ${testVecs.length}")
+
+
+    val trainRdd = sparkContext.makeRDD(trainVecs)
+    val testRdd = sparkContext.makeRDD(testVecs)
+
+
+    println("Train starting...")
+
+    // Run training algorithm to build the model
+    val model = new LogisticRegressionWithLBFGS()
+      .setNumClasses(classNum)
+      .run(trainRdd)
+
+    println("Train finished!")
+
+    // Compute raw scores on the test set.
+    val predictionAndLabels = testRdd.map { case LabeledPoint(label, features) =>
+      val prediction = model.predict(features)
+      (prediction, label)
+    }
+
+    // Get evaluation metrics.
+    val metrics = new MulticlassMetrics(predictionAndLabels)
+    val accuracy = metrics.accuracy
+
+
+
+    println(s"Accuracy    : ${accuracy}")
+    println(s"-----------------------------------")
+    println(s"TFIDF abx max     : ${tfidfAbsMaxElem}")
+  }
+
+  /**
     * Execute (Normalized TFIDF) ++ (Normalized Word2Vec) by Logistic Regression
     *
     * @param dataset

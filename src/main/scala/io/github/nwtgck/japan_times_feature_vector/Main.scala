@@ -616,8 +616,20 @@ object Main {
       //      -----------------------------------
       //      TFIDF abx max     : 245.3739173933605
       //      word2vec abs max: 88.96915444626939
+    }
 
-
+    if(true) {
+      // [Not use Spark's TFIDF]
+      //
+      // TFIDF Normalization   : Disable
+      LogisticRegressionExecutor.`execute train-test (Normalized TFIDF)`(
+        JapanTimesDonwloader.`Labeled Dataset of (train-set: (article + many titles), test-set: many titles)`(titleTimes = 20, downloadInfo = `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        enableNormalizationForTFIDF   = false
+      )
+      //      Accuracy    : 0.7835671342685371
+      //      -----------------------------------
+      //      TFIDF abx max     : 313.6538216099216
     }
 
 
