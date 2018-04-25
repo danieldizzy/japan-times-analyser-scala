@@ -90,6 +90,7 @@ object LogisticRegressionExecutor {
 
     println(s"Average Accuracy: ${accuracies.sum / accuracies.length}")
 
+    sparkContext.stop()
   }
 
   /**
