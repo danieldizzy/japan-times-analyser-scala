@@ -1,6 +1,6 @@
 package io.github.nwtgck.japan_times_feature_analyser
 
-import io.github.nwtgck.japan_times_feature_analyser.classifier.LogisticRegressionExecutor
+import io.github.nwtgck.japan_times_feature_analyser.classifier.{LogisticRegressionExecutor, SVMExecutor}
 import io.github.nwtgck.japan_times_feature_analyser.datatype._
 import io.github.nwtgck.japan_times_feature_analyser.downloader.{FigureAndSumoDataset, JapanTimesDataset, JapanTimesDonwloader, TimesGetterJsoup}
 import io.github.nwtgck.japan_times_feature_analyser.pycall.PythonCall
@@ -946,10 +946,10 @@ object Main {
     if(true) {
       // Train: article
       // Test : article
-      LogisticRegressionExecutor.executeTFIDF(
+      SVMExecutor.executeTFIDF(
         dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 10, Articles: Economy & Figure`),
         trainSetRate = 0.3,
-        "./gensim-text-for-word2vec/__DUMMY__jp_times_with_title2.txt",
+        numIterations = 100,
         crossValidationTimes = 5
       )
     }
