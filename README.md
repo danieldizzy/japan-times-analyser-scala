@@ -6,7 +6,7 @@ Download & Analyse articles in Japan Times
 - Train: Japan times title, Test: Japan times title
 - Train: Japan times article+title, Test: Japan times title
 
-# Methods of generating feature vectors
+## Methods of generating feature vectors
 
 - TFIDF (My implementaion)
 - TFIDF (Spark's implementation)
@@ -15,7 +15,7 @@ Download & Analyse articles in Japan Times
 
 (`++` concats two vectors together)
 
-# Dataset
+## Dataset
 
 The following is a part of `Main.scala`. This shows what category I used.
 
@@ -65,16 +65,16 @@ val `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo` = Downl
 ```
 
 
-# How to run?
+## How to run
 
-## Way1 - IntelliJ IDEA
+### Way1 - IntelliJ IDEA
 
 1. Download this repo
 2. Open this repo as a `sbt` project in IntelliJ IDEA
 3. Open `<this-repo>/build.sbt` in IntelliJ IDEA and click the `Refresh project`
 4. Run `<this-repo>/src/main/scala/io.github.nwtgck.japan_times_feature_vector/Main.scala`
 
-## Way2 - Command Line (sbt)
+### Way2 - Command Line (sbt)
 
 *CAUTION: this way doen't work, but it can work usually*
 
@@ -95,7 +95,7 @@ That's all. (Dependencies(libraries) and compiling is finished by only `sbt run`
 But this doesn't work. It has runtime error. I think Spark has problem.
 
 
-# How to change the code
+## How to change the code
 
 `Main.scala` has the code such as 
 
@@ -111,9 +111,9 @@ if(false){
 
 If you want to execute a process, you should change `false` to `true`. It's easy to toggle the process.
 
-# Explanation of Packages
+## Explanation of Packages
 
-## `datatype` package
+### `datatype` package
 
 Classes on this package are very very simple. These are for only structures.
 
@@ -129,14 +129,14 @@ case class DownloadInfo(storedPath: String, pageLimit: Int, pageToUrls: Seq[Int 
 
 They are very simple.
 
-## `downloader` package
+### `downloader` package
 
 * `TimesGetterJsoup.scala` is a scraper to get Japan Times Articles
 * `JapanTimesDownloader.scala` is a user of `TimesGetterJsoup.scala` to download articles and cache them into a file
 * `FigureAndSumoDataset` is old
 * `JapanTimesDataset` is old
 
-## `pycall` package
+### `pycall` package
 
 `pycall` is my python library which ename us to connect Python with other language such as Scala.
 
@@ -145,7 +145,7 @@ To do this, you have to run the pycall python program in advance.
 
 `pycall` is used for getting word2vec, but I use Spark's word2vec. So now I complete all in Scala code.
 
-## `text_file_generator` package
+### `text_file_generator` package
 
 They are generators for `SVM-light` format or `gensim` readable format
 
@@ -156,12 +156,12 @@ Now, I complete all in Scala code.
 (I use Spark's word2vec instead of `gensim`)
 
 
-## `vector_generator` package
+### `vector_generator` package
 
 They calc TFIDF or word2vec.
 
 
-# CAUTION
+## CAUTION
 
 This source code has many repeated sources. In other word, this ignore DRY(Don't Repeat Yourself). 
 
