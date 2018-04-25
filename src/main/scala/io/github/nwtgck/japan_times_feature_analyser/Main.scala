@@ -946,12 +946,14 @@ object Main {
     if(true) {
       // Train: article
       // Test : article
+      val dataset: LabeledMultiDataset[Int] = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 10, Articles: Economy & Figure`)
       SVMExecutor.executeTFIDF(
-        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 10, Articles: Economy & Figure`),
+        dataset = dataset,
         trainSetRate = 0.3,
         numIterations = 100,
         crossValidationTimes = 5
       )
+      println(s"The number of articles: ${dataset.docs.length}")
     }
 
 
