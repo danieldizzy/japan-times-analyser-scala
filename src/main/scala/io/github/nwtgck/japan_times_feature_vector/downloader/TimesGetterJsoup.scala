@@ -123,7 +123,7 @@ object TimesGetterJsoup {
         val urls = for {
             artTag <- artTags.toStream
         } yield {
-          val aTag = artTag.select("h1 > a").first()
+          val aTag = artTag.select("p > a").first()
           val url = aTag.attr("href")
           url
         }

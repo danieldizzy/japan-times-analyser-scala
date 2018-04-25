@@ -325,6 +325,19 @@ object Main {
       )
     )
 
+    // Download Information
+    val `Page-Limit: 10, Articles: Economy & Figure` = DownloadInfo(
+      storedPath = "./data/jptimes-eptfs-multi-each10-articles.json",
+      pageLimit = 10,
+      pageToUrls = Seq(
+        TimesGetterJsoup.economyPage _,
+//        TimesGetterJsoup.politicPage _,
+//        TimesGetterJsoup.techPage _,
+        TimesGetterJsoup.figurePage _
+//        TimesGetterJsoup.sumoPage _
+      )
+    )
+
 
     if(false){
       // Make a SparkContext
@@ -514,7 +527,7 @@ object Main {
     }
 
 
-    if(true) {
+    if(false) {
       // [Use Spark's TFIDF]
       //
       // Train: article
@@ -928,6 +941,17 @@ object Main {
       println(word2VecModel.findSynonyms("Japan", 10).toList)
       println(word2VecModel.findSynonyms("Abe", 10).toList)
       println(word2VecModel.findSynonyms("is", 10).toList)
+    }
+
+    if(true) {
+      // Train: article
+      // Test : article
+      LogisticRegressionExecutor.executeTFIDF(
+        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 10, Articles: Economy & Figure`),
+        trainSetRate = 0.3,
+        "./gensim-text-for-word2vec/__DUMMY__jp_times_with_title2.txt",
+        crossValidationTimes = 5
+      )
     }
 
 

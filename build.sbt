@@ -2,7 +2,7 @@ name := "japan-times-feature-vector-scala"
 
 version := "1.0"
 
-scalaVersion := "2.10.4"
+scalaVersion := "2.11.12"
 
 val seleniumVersion = "2.53.1"
 
