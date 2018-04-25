@@ -1,4 +1,4 @@
-name := "japan-times-feature-vector-scala"
+name := "japan-times-analyser"
 
 version := "1.0"
 
