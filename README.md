@@ -1,4 +1,5 @@
 # Japan Times Analyser
+[![Build Status](https://travis-ci.org/nwtgck/japan-times-analyser-scala.svg?branch=master)](https://travis-ci.org/nwtgck/japan-times-analyser-scala)
 
 Download & Analyse articles in Japan Times
 - Train: Japan times article, Test: Japan times article,
