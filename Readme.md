@@ -4,24 +4,26 @@ Japan Times Feature Vector Generator
 # What is this?
 
 Generate feature vectors of 
-- only Japan times Article
-- Train: Japan times article, Test: Japan times article
-- Train: Japan times article, Test: Japan times title
+- Train: Japan times article, Test: Japan times article,
+- Train: Japan times title, Test: Japan times title
+- Train: Japan times article+title, Test: Japan times title
 
-# Generating Methods
+# Methods of generating feature vectors
 
-- TFIDF
-- TFIDF vector ++ word2vec
+- TFIDF (My implementaion)
+- TFIDF (Spark's implementation)
+- TFIDF vector ++ word2vec(gensim's implementaion)
+- TFIDF vector ++ word2vec(Spark's implementaion)
 
 (`++` concats two vectors together)
 
-# Category of articles
+# Dataset
 
 The following is a part of `Main.scala`. This shows what category I used.
 
 1. Economy, Politic, Tech, Figure Skating and Sumo (Each page limit 30)
-2. ~~Economy, Politic, Crime and Legal, Editorial, Corporate~~ (Not used because this is too big to calc for my PC. this caused `OutOfMemoryError`)
-3. Economy, Politic, Tech, Figure Skating and Sumo (Each page limit 46)
+2. Economy, Politic, Crime and Legal, Editorial, Corporate (Each page limit 184 = about 11040 articles)(Not used because this is too big to calc for my PC. this caused `OutOfMemoryError`)
+3. Economy, Politic, Tech, Figure Skating and Sumo (Each page limit 46 = 2760 articles)
 
 ```scala
 // Download Information
