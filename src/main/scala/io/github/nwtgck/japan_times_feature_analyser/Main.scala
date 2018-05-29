@@ -1,6 +1,6 @@
 package io.github.nwtgck.japan_times_feature_analyser
 
-import io.github.nwtgck.japan_times_feature_analyser.classifier.{LogisticRegressionExecutor, SVMExecutor}
+import io.github.nwtgck.japan_times_feature_analyser.classifier.{LogisticRegressionExecutor, MLPExecutor, SVMExecutor}
 import io.github.nwtgck.japan_times_feature_analyser.datatype._
 import io.github.nwtgck.japan_times_feature_analyser.downloader.{FigureAndSumoDataset, JapanTimesDataset, JapanTimesDonwloader, TimesGetterJsoup}
 import io.github.nwtgck.japan_times_feature_analyser.pycall.PythonCall
@@ -316,6 +316,19 @@ object Main {
     val `Page-Limit: 46, Articles: Economy & Politic & Tech & Figure & Sumo` = DownloadInfo(
       storedPath = "./data/jptimes-eptfs-multi-each46-articles.json",
       pageLimit = 46,
+      pageToUrls = Seq(
+        TimesGetterJsoup.economyPage _,
+        TimesGetterJsoup.politicPage _,
+        TimesGetterJsoup.techPage _,
+        TimesGetterJsoup.figurePage _,
+        TimesGetterJsoup.sumoPage _
+      )
+    )
+
+    // Download Information
+    val `Page-Limit: 20, Articles: Economy & Politic & Tech & Figure & Sumo` = DownloadInfo(
+      storedPath = "./data/jptimes-eptfs-multi-each46-articles.json",
+      pageLimit = 20,
       pageToUrls = Seq(
         TimesGetterJsoup.economyPage _,
         TimesGetterJsoup.politicPage _,
@@ -943,10 +956,10 @@ object Main {
       println(word2VecModel.findSynonyms("is", 10).toList)
     }
 
-    if(true) {
+    if(false) {
       // Train: article
       // Test : article
-      val dataset: LabeledMultiDataset[Int] = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 10, Articles: Economy & Figure`)
+      val dataset: LabeledMultiDataset[Int] = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 20, Articles: Economy & Politic & Tech & Figure & Sumo`)
       SVMExecutor.executeTFIDF(
         dataset = dataset,
         trainSetRate = 0.3,
@@ -954,6 +967,29 @@ object Main {
         crossValidationTimes = 5
       )
       println(s"The number of articles: ${dataset.docs.length}")
+    }
+
+    if(true){
+      // [Use Spark's TFIDF]
+      //
+      // Train: article
+      // Test : article
+      // TFIDF Normalization   : Disable
+      // Word2vec Normalization: Disable
+      MLPExecutor.`execute (Normalized Spark's TFIDF) ++ (Normalized Word2Vec)`(
+        dataset = JapanTimesDonwloader.`Labeled Multi-Dataset of (train-set: only article, test-set: only article)`(downloadInfo = `Page-Limit: 20, Articles: Economy & Politic & Tech & Figure & Sumo`),
+        trainSetRate = 0.8,
+        word2VecDem = 100,
+        crossValidationTimes = 1,
+        enableNormalizationForTFIDF   = false,
+        enableNormaliztionForWord2vec = false
+      )
+      //      Average Accuracy: 0.9681362725450902
+      //      Max Accuracy    : 0.9739478957915831
+      //      Min Accuracy    : 0.9599198396793587
+      //      -----------------------------------
+      //      TFIDF abx max     : 176.928060220864
+      //      word2vec abs max: 136.46763747135992
     }
 
 
